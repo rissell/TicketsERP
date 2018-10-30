@@ -38,7 +38,13 @@ The back end is developed in python 2.7.15 with some libraries required to parse
 -Configure the credentials of your ODDO instance (IP, user, password)
 
 ## Requirements
-Web Server to Run Vue.JS
-SQL Server database
-Instance of ODDO 11+
-Python 2.7+
+-Web Server to Run Vue.JS
+
+-SQL Server database
+
+-Instance of ODDO 11+
+
+-Python 2.7+
+
+## The Database
+We use a SQL database to save the information of the tickets and users, on the docker image it includes the sql script to create the database schema and tables.
