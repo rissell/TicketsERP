@@ -1,32 +1,25 @@
 <template id="tickets-table">
   <v-card>
     <v-card-title>
-      Current Tickets
+      <h2>
+        Pending Tickets
+      </h2>
       <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="search"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
     </v-card-title>
     <v-data-table
       :headers="headers"
       :items="ticketsToShow"
-      :search="search"
     >
       <template slot="items" slot-scope="props">
-        <td class="text-xs-right">{{ props.item.pendingTickets }}</td>
-        <td class="text-xs-right">{{ props.item.ongoingTickets }}</td>
-        <td class="text-xs-right">{{ props.item.fixedTickets }}</td>
+        <td class="text-xs-right">{{ props.item.value }}</td>
+        <td class="text-xs-right">{{ props.item.name }}</td>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">
         Your search for "{{ search }}" found no results.
       </v-alert>
     </v-data-table>
-    <button class="btn btn-default" v-on:click = getTickets>BOTON</button>
   </v-card>
+
 </template>
 
 <script>
@@ -37,19 +30,10 @@
       return {
         search: '',
         headers: [
-          { text: 'Pending Tickets', value: 'pending' },
-          { text: 'Ongoing Tickets', value: 'ongoing' },
-          { text: 'Fixed Tickets', value: 'fixed' }
+          { text: 'Ticket No.', value: 'pending' },
+          { text: 'Date', value: 'ongoing' },
         ],
         ticketsToShow: [
-          {
-            value: false,
-            name: '01'
-          },
-          {
-            value: false,
-            name: '02'
-          }
         ]
       }
     },
@@ -58,12 +42,17 @@
 
       //product ID, Ticket ID, descripcion, ubicacion, imagen
       //TODO create variable en el config dev, URL_API
+      //edit comlumn
 
       getTickets: function () {
-        axios.get('http://10.43.96.216:8080/inventory?item=0123456789')
+        axios.get('http://10.43.102.7:8080/tickets')
         .then(response => {
             console.log(response.data);
-            //this.ticketsToShow = response.data
+            let i=0;
+            for(i in response.data){
+                this.ticketsToShow.push({value: response.data[i][0], name: response.data[i][1]});
+            }
+            
         })
         .catch(error => {
           console.log(error);

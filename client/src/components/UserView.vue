@@ -92,7 +92,9 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-          <tickets-component></tickets-component>
+          <ongoing-tickets-component></ongoing-tickets-component>
+          <pending-tickets-component></pending-tickets-component>
+          <fixed-tickets-component></fixed-tickets-component>
         </v-layout>
       </v-container>
     </v-content>
@@ -120,10 +122,6 @@
           <v-layout row wrap>
             <v-flex xs12 align-center justify-space-between>
               <v-layout align-center>
-                
-                <v-text-field
-                  placeholder="Ticket ID"
-                ></v-text-field>
               </v-layout>
             </v-flex>
             <v-flex xs12>
@@ -138,17 +136,17 @@
                 placeholder="Description of issue"
               ></v-text-field>
             </v-flex>
-            <v-flex xs12>
-              <v-avatar size="40px" class="mr-3">
-                  <img
-                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                    alt=""
-                  >
-                </v-avatar>
+            <v-flex xs6>
               <v-text-field
-                prepend-icon="user"
-                placeholder="Assigned staff"
+                prepend-icon="business"
+                placeholder="Location"
               ></v-text-field>
+            </v-flex>
+            <v-flex xs6 d-flex>
+              <v-select
+              :items="area"
+              label="Area"
+              ></v-select>
             </v-flex>
           </v-layout>
         </v-container>
@@ -168,6 +166,14 @@
   export default {
     data: () => ({
       dialog: false,
+      area: [
+        { text: 'ELECTRIC' },
+        { text: 'CLEANING' },
+        { text: 'IT' },
+        { text: 'STORAGE' },
+        { text: 'MAINTENANCE' },
+        { text: 'SECURITY' }
+      ],
       newTicketDialog: false,
       drawer: null,
       username: 'Rosa',
