@@ -7,6 +7,7 @@ import userView from '@/components/userView'
 import ticketsViewOngoing from '@/components/ticketsViewOngoing'
 import ticketsViewPending from '@/components/ticketsViewPending'
 import ticketsViewFixed from '@/components/ticketsViewFixed'
+import adminView from '@/components/adminView'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
 Vue.use(Router)
@@ -26,14 +27,14 @@ export default new Router({
       component: login
     },
     {
-      path: '/userView',
+      path: '/user',
       name: 'userView',
       component: userView
     },
     {
       path: '/admin',
-      name: 'userView',
-      component: userView
+      name: 'adminView',
+      component: adminView
     },
     {
       path: '/working-ticket',

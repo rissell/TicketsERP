@@ -7,7 +7,7 @@
       app
     >
       <v-list dense>
-        <template v-for="item in items">
+        <template v-for="item in leftBarItems">
           <v-layout
             v-if="item.heading"
             :key="item.heading"
@@ -193,7 +193,7 @@
       drawer: null,
       username: 'Rosa',
       datetime: new Date().toISOString().slice(0,10),
-      items: [
+      leftBarItems: [
         { icon: 'contacts', text: 'Maintenance staff' },
         {
           icon: 'keyboard_arrow_up',
