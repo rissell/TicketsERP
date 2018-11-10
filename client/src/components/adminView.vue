@@ -92,21 +92,27 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-          
-        <v-data-table
-            :headers="adminHeaders"
-            :items="adminTickets"
-            hide-actions
-            class="elevation-1"
-        >
-            <template slot="items" slot-scope="props">
-            <td>{{ props.item.ticketId }}</td>
-            <td class="text-xs-right">{{ props.item.itemName }}</td>
-            <td class="text-xs-right">{{ props.item.issueDescription }}</td>
-            <td class="text-xs-right">{{ props.item.status }}</td>
-            </template>
-        </v-data-table>
-
+            <v-card>    
+                <v-card-title>
+                    <h2>
+                    Submitted tickets
+                    </h2>
+                    <v-spacer></v-spacer>
+                </v-card-title>
+                <v-data-table
+                    :headers="adminHeaders"
+                    :items="adminTickets"
+                    hide-actions
+                    class="elevation-1"
+                >
+                    <template slot="items" slot-scope="props">
+                    <td>{{ props.item.ticketId }}</td>
+                    <td class="text-xs-right">{{ props.item.itemName }}</td>
+                    <td class="text-xs-right">{{ props.item.issueDescription }}</td>
+                    <td class="text-xs-right">{{ props.item.status }}</td>
+                    </template>
+                </v-data-table>
+            </v-card>
         </v-layout>
       </v-container>
     </v-content>
@@ -265,7 +271,9 @@ import axios from 'axios'
     },
     methods: {
 
-      //TODO get adminTickets
+      //TODO GET adminTickets
+      //TODO POST ticket
+      //TODO PUT ticket
       
       submitTicket: function () {
         axios(

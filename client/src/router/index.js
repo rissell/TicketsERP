@@ -8,6 +8,7 @@ import ticketsViewOngoing from '@/components/ticketsViewOngoing'
 import ticketsViewPending from '@/components/ticketsViewPending'
 import ticketsViewFixed from '@/components/ticketsViewFixed'
 import adminView from '@/components/adminView'
+import maintenaceDashboard from '@/components/maintenanceDashboardView'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
 Vue.use(Router)
@@ -42,9 +43,9 @@ export default new Router({
       component: userView
     },
     {
-      path: '/maintenace-dashboard',
-      name: 'userView',
-      component: userView
+      path: '/maintenace',
+      name: 'maintenace-dashboard',
+      component: maintenaceDashboard
     }
   ]
 })
