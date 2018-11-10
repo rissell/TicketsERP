@@ -46,7 +46,7 @@
       //edit comlumn
 
       getTickets: function () {
-        axios.get('http://10.43.102.7:8080/tickets')
+        axios.get('http://10.43.102.7:8080/ongoing')
         .then(response => {
             console.log(response.data);
             let i=0;

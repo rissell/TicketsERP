@@ -32,6 +32,21 @@ export default new Router({
       component: UserView
     },
     {
+      path: '/admin',
+      name: 'UserView',
+      component: UserView
+    },
+    {
+      path: '/working-ticket',
+      name: 'UserView',
+      component: UserView
+    },
+    {
+      path: '/maintenace-dashboard',
+      name: 'UserView',
+      component: UserView
+    },
+    {
       path: '/registerView',
       name: 'RegisterView',
       component: RegisterView

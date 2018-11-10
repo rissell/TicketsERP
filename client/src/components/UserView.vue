@@ -112,6 +112,7 @@
 
 
     <v-dialog v-model="newTicketDialog" width="800px">
+      <form method="post" @submit.prevent="submitTicket">
       <v-card>
         <v-card-title
           class="grey lighten-4 py-4 title"
@@ -142,10 +143,17 @@
                 placeholder="Location"
               ></v-text-field>
             </v-flex>
-            <v-flex xs6 d-flex>
-              <v-select
+            <v-flex xs3 d-flex>
+              <v-select 
               :items="area"
+              value="area.value"
               label="Area"
+              ></v-select>
+            </v-flex>
+            <v-flex xs3 d-flex>
+              <v-select
+              :items="priorities"
+              label="Priority"
               ></v-select>
             </v-flex>
           </v-layout>
@@ -153,26 +161,33 @@
         <v-card-actions>
           <v-btn flat color="primary">Attach photo</v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="newTicketDialog = false">Cancel</v-btn>
-          <v-btn flat @click="newTicketDialog = false">Save</v-btn>
+          <v-btn flat color="primary" @click="attachPhoto">Cancel</v-btn>
+          <v-btn type="submit" @click="submitTicket" flat color="primary" >Save</v-btn>
         </v-card-actions>
       </v-card>
+      </form>
     </v-dialog>
 
   </v-app>
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     data: () => ({
       dialog: false,
       area: [
-        { text: 'ELECTRIC' },
+        { text: 'ELECTRIC', value: 'ELECTRIC' },
         { text: 'CLEANING' },
         { text: 'IT' },
         { text: 'STORAGE' },
         { text: 'MAINTENANCE' },
         { text: 'SECURITY' }
+      ],
+      
+      priorities: [
+        { text: 'High', value: '1' },
+        { text: 'Low', value: '0' }
       ],
       newTicketDialog: false,
       drawer: null,
@@ -180,21 +195,41 @@
       datetime: new Date().toISOString().slice(0,10),
       items: [
         { icon: 'contacts', text: 'Maintenance staff' },
-        { icon: 'history', text: 'Current tickets' },
-        { icon: 'content_copy', text: 'Register new user' },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'Inventory',
+          text: 'Tickets',
           model: true,
           children: [
-            { icon: 'add', text: 'Add inventory item' }
+            { icon: 'history', text: 'Current tickets' }
           ]
         }
       ]
     }),
     props: {
       source: String
+    },
+    methods: {
+      
+      submitTicket: function () {
+        axios(
+          {
+            method: 'post',
+            url: 'http://10.43.102.7:8080/',
+            data: 'algo'//TODO
+          }
+        )
+        .then(response => {
+            console.log(response.data);            
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
+      
+      attachPhoto: function() {
+
+      }
     }
   }
 </script>

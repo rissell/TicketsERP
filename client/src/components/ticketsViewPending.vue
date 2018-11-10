@@ -44,8 +44,8 @@
       //TODO create variable en el config dev, URL_API
       //edit comlumn
 
-      getTickets: function () {
-        axios.get('http://10.43.102.7:8080/tickets')
+      getPendingTickets: function () {
+        axios.get('http://10.43.102.7:8080/pending')
         .then(response => {
             console.log(response.data);
             let i=0;
@@ -58,7 +58,10 @@
           console.log(error);
         })
       }
+    },
 
+    mounted: function() {
+      this.getPendingTickets()
     }
   }
 </script>
