@@ -178,9 +178,17 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat color="primary">Attach photo</v-btn>
+          <img :src="imageUrl" height="150" v-if="imageUrl"/>
+          <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
+					<input
+						type="file"
+						style="display: none"
+						ref="image"
+						accept="image/*"
+						@change="onFilePicked"
+					>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="attachPhoto">Cancel</v-btn>
+          <v-btn flat color="primary" >Cancel</v-btn>
           <v-btn type="submit" @click="submitTicket" flat color="primary" >Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -196,6 +204,11 @@
 import axios from 'axios'
   export default {
     data: () => ({
+      title: "Image Upload",
+      dialog: false,
+      imageName: '',
+      imageUrl: '',
+      imageFile: '',
       dialog: false,
       area: [
         { text: 'ELECTRIC', value: 'ELECTRIC' },
@@ -300,8 +313,28 @@ import axios from 'axios'
         })
       },
       
-      attachPhoto: function() {
-
+      pickFile () {
+            this.$refs.image.click ()
+        },
+		
+      onFilePicked (e) {
+        const files = e.target.files
+        if(files[0] !== undefined) {
+          this.imageName = files[0].name
+          if(this.imageName.lastIndexOf('.') <= 0) {
+            return
+          }
+          const fr = new FileReader ()
+          fr.readAsDataURL(files[0])
+          fr.addEventListener('load', () => {
+            this.imageUrl = fr.result
+            this.imageFile = files[0] // this is an image file that can be sent to server...
+          })
+        } else {
+          this.imageName = ''
+          this.imageFile = ''
+          this.imageUrl = ''
+        }
       }
     }
   }
