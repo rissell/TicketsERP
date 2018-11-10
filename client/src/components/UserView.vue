@@ -178,7 +178,7 @@
       dialog: false,
       area: [
         { text: 'ELECTRIC', value: 'ELECTRIC' },
-        { text: 'CLEANING' },
+        { text: 'CLEANING', value: '' }, //TODO
         { text: 'IT' },
         { text: 'STORAGE' },
         { text: 'MAINTENANCE' },
@@ -186,8 +186,8 @@
       ],
       
       priorities: [
-        { text: 'High', value: '1' },
-        { text: 'Low', value: '0' }
+        { text: 'HIGH', value: '1' },
+        { text: 'LOW', value: '0' }
       ],
       newTicketDialog: false,
       drawer: null,

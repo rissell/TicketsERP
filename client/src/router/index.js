@@ -2,12 +2,11 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import Router from 'vue-router'
-import Login from '@/components/Login'
-import UserView from '@/components/UserView'
+import login from '@/components/login'
+import userView from '@/components/userView'
 import ticketsViewOngoing from '@/components/ticketsViewOngoing'
 import ticketsViewPending from '@/components/ticketsViewPending'
 import ticketsViewFixed from '@/components/ticketsViewFixed'
-import RegisterView from '@/components/RegisterView'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
 Vue.use(Router)
@@ -23,33 +22,28 @@ export default new Router({
   routes: [
     {
       path: '/login',
-      name: 'Login',
-      component: Login
+      name: 'login',
+      component: login
     },
     {
       path: '/userView',
-      name: 'UserView',
-      component: UserView
+      name: 'userView',
+      component: userView
     },
     {
       path: '/admin',
-      name: 'UserView',
-      component: UserView
+      name: 'userView',
+      component: userView
     },
     {
       path: '/working-ticket',
-      name: 'UserView',
-      component: UserView
+      name: 'userView',
+      component: userView
     },
     {
       path: '/maintenace-dashboard',
-      name: 'UserView',
-      component: UserView
-    },
-    {
-      path: '/registerView',
-      name: 'RegisterView',
-      component: RegisterView
+      name: 'userView',
+      component: userView
     }
   ]
 })
