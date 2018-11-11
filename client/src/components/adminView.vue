@@ -110,9 +110,15 @@
                     <td class="text-xs-right">{{ props.item.itemName }}</td>
                     <td class="text-xs-right">{{ props.item.issueDescription }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
+                    <td class="text-xs-right">
+
+                        <v-btn @click="editTicketDialog = !editTicketDialog" color="#A94E93" dark>Edit status</v-btn>   
+
+                    </td>
                     </template>
                 </v-data-table>
             </v-card>
+
         </v-layout>
       </v-container>
     </v-content>
@@ -120,7 +126,7 @@
       fab
       bottom
       right
-      color="pink"
+      color="#A94E93"
       dark
       fixed
       @click="newTicketDialog = !newTicketDialog"
@@ -189,8 +195,72 @@
 				>          
             
             <v-spacer></v-spacer>
-          <v-btn flat color="primary" >Cancel</v-btn>
-          <v-btn type="submit" @click="submitTicket" flat color="primary" >Save</v-btn>
+          <v-btn flat color="#A94E93" >Cancel</v-btn>
+          <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
+        </v-card-actions>
+      </v-card>
+      </form>
+    </v-dialog>
+
+    <v-dialog v-model="editTicketDialog" width="800px">
+      <form method="post" @submit.prevent="submitTicket">
+      <v-card>
+        <v-card-title
+          class="grey lighten-4 py-4 title"
+        >
+          Edit Ticket Status
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-layout row wrap>
+            <v-flex xs12 align-center justify-space-between>
+              <v-layout align-center>
+              </v-layout>
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Reported item ID"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Description of issue"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-select 
+              :items="statusOfTicket"
+              value="statusOfTicket.value"
+              label="Status"
+              ></v-select>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Location"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs3 d-flex>
+              <v-select 
+              :items="area"
+              value="area.value"
+              label="Area"
+              ></v-select>
+            </v-flex>
+            <v-flex xs3 d-flex>
+              <v-select
+              :items="priorities"
+              label="Priority"
+              ></v-select>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <v-card-actions>
+            <img :src="imageUrl" height="150" v-if="imageUrl"/>				       
+            <v-spacer></v-spacer>
+            <v-btn flat color="#A94E93" >Cancel</v-btn>
+            <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
         </v-card-actions>
       </v-card>
       </form>
@@ -219,12 +289,17 @@ import axios from 'axios'
         { text: 'MAINTENANCE' },
         { text: 'SECURITY' }
       ],
-      
+      statusOfTicket: [
+        { text: 'PENDING', value: 'Pending' },
+        { text: 'ONGOING', value: 'Ongoing' },
+        { text: 'FIXED', value: 'Fixed' }
+      ],
       priorities: [
         { text: 'HIGH', value: '1' },
         { text: 'LOW', value: '0' }
       ],
       newTicketDialog: false,
+      editTicketDialog: false,
       drawer: null,
       username: 'Rosa',
       datetime: new Date().toISOString().slice(0,10),
@@ -264,6 +339,11 @@ import axios from 'axios'
             align: 'center',
             sortable: true,
             value: 'status'
+          },
+          {
+            text: '',
+            align: 'center',
+            sortable: false,
           }
         ],
         adminTickets: [        
@@ -271,12 +351,14 @@ import axios from 'axios'
               ticketId: '00',
               itemName: 'chair',
               issueDescription: 'description of issue',
+              location: 'location1',
               status: 'LOW'
           },
           {
               ticketId: '01',
               itemName: 'table',
               issueDescription: 'description of issue',
+              location: 'location2',
               status: 'HIGH' 
           }
         ]
