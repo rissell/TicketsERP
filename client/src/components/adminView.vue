@@ -113,6 +113,77 @@
                     <td class="text-xs-right">
 
                         <v-btn @click="editTicketDialog = !editTicketDialog" color="#A94E93" dark>Edit status</v-btn>   
+                        <v-dialog v-model="editTicketDialog" width="800px">
+                            <form method="post" @submit.prevent="submitTicket">
+                            <v-card>
+                                <v-card-title
+                                class="grey lighten-4 py-4 title"
+                                >
+                                Edit Ticket # {{props.item.ticketId}} Status
+                                </v-card-title>
+                                <v-container grid-list-sm class="pa-4">
+                                <v-layout row wrap>
+                                    <v-flex xs12 align-center justify-space-between>
+                                    <v-layout align-center>
+                                    </v-layout>
+                                    </v-flex>
+                                    <v-flex xs12>
+                                    <v-text-field
+                                        prepend-icon="business"
+                                        label="Reported item ID"
+                                        placeholder= props.item.itemId
+                                        disabled="true"
+                                    ></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs6>
+                                    <v-text-field
+                                        prepend-icon="business"
+                                        label="Description of issue"
+                                        placeholder= props.item.issueDescription
+                                        disabled="true"
+                                    ></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs6>
+                                    <v-select 
+                                    :items="statusOfTicket"
+                                    value="statusOfTicket.value"
+                                    label="Status"
+                                    ></v-select>
+                                    </v-flex>
+                                    <v-flex xs6>
+                                    <v-text-field
+                                        prepend-icon="business"
+                                        label="Location"
+                                        placeholder= props.item.location
+                                        disabled="true"
+                                    ></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs3 d-flex>
+                                    <v-select 
+                                    :items="area"
+                                    value="area.value"
+                                    label="Area"
+                                    disabled="true"
+                                    ></v-select>
+                                    </v-flex>
+                                    <v-flex xs3 d-flex>
+                                    <v-select
+                                    :items="priorities"
+                                    label="Priority"
+                                    disabled="true"
+                                    ></v-select>
+                                    </v-flex>
+                                </v-layout>
+                                </v-container>
+                                <v-card-actions>
+                                    <img :src="imageUrl" height="150" v-if="imageUrl"/>				       
+                                    <v-spacer></v-spacer>
+                                    <v-btn flat color="#A94E93" >Cancel</v-btn>
+                                    <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                            </form>
+                        </v-dialog>
 
                     </td>
                     </template>
@@ -202,69 +273,7 @@
       </form>
     </v-dialog>
 
-    <v-dialog v-model="editTicketDialog" width="800px">
-      <form method="post" @submit.prevent="submitTicket">
-      <v-card>
-        <v-card-title
-          class="grey lighten-4 py-4 title"
-        >
-          Edit Ticket Status
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              <v-layout align-center>
-              </v-layout>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                prepend-icon="business"
-                placeholder="Reported item ID"
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field
-                prepend-icon="business"
-                placeholder="Description of issue"
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs6>
-              <v-select 
-              :items="statusOfTicket"
-              value="statusOfTicket.value"
-              label="Status"
-              ></v-select>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field
-                prepend-icon="business"
-                placeholder="Location"
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs3 d-flex>
-              <v-select 
-              :items="area"
-              value="area.value"
-              label="Area"
-              ></v-select>
-            </v-flex>
-            <v-flex xs3 d-flex>
-              <v-select
-              :items="priorities"
-              label="Priority"
-              ></v-select>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-            <img :src="imageUrl" height="150" v-if="imageUrl"/>				       
-            <v-spacer></v-spacer>
-            <v-btn flat color="#A94E93" >Cancel</v-btn>
-            <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
-        </v-card-actions>
-      </v-card>
-      </form>
-    </v-dialog>
+    
 
   </v-app>
 
@@ -349,6 +358,7 @@ import axios from 'axios'
         adminTickets: [        
           {
               ticketId: '00',
+              itemId: '1234',
               itemName: 'chair',
               issueDescription: 'description of issue',
               location: 'location1',
@@ -356,6 +366,7 @@ import axios from 'axios'
           },
           {
               ticketId: '01',
+              itemId: '2323',
               itemName: 'table',
               issueDescription: 'description of issue',
               location: 'location2',
