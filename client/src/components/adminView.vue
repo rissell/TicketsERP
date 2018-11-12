@@ -76,11 +76,11 @@
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Odoo Tickets</span>
       </v-toolbar-title>
-      
+
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <span class="hidden-sm-and-down">Today, {{datetime}}</span>
       </v-toolbar-title>
-      
+
       <v-spacer></v-spacer>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <span class="hidden-sm-and-down">Welcome, {{username}}</span>
@@ -92,33 +92,25 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-            <v-card>    
+            <v-card>
                 <v-card-title>
                     <h2>
                     Submitted tickets
                     </h2>
                     <v-spacer></v-spacer>
                 </v-card-title>
-                <v-data-table
-                    :headers="adminHeaders"
-                    :items="adminTickets"
-                    hide-actions
-                    class="elevation-1"
-                >
+                <v-data-table :headers="adminHeaders" :items="adminTickets" hide-actions class="elevation-1">
                     <template slot="items" slot-scope="props">
                     <td>{{ props.item.ticketId }}</td>
                     <td class="text-xs-right">{{ props.item.itemName }}</td>
                     <td class="text-xs-right">{{ props.item.issueDescription }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
                     <td class="text-xs-right">
-
-                        <v-btn @click="editTicketDialog = !editTicketDialog" color="#A94E93" dark>Edit status</v-btn>   
+                        <v-btn @click="editTicket(props.item.ticketId)" color="#A94E93" dark>Edit status</v-btn>
                         <v-dialog v-model="editTicketDialog" width="800px">
                             <form method="post" @submit.prevent="submitTicket">
                             <v-card>
-                                <v-card-title
-                                class="grey lighten-4 py-4 title"
-                                >
+                                <v-card-title class="grey lighten-4 py-4 title">
                                 Edit Ticket # {{props.item.ticketId}} Status
                                 </v-card-title>
                                 <v-container grid-list-sm class="pa-4">
@@ -144,7 +136,7 @@
                                     ></v-text-field>
                                     </v-flex>
                                     <v-flex xs6>
-                                    <v-select 
+                                    <v-select
                                     :items="statusOfTicket"
                                     value="statusOfTicket.value"
                                     label="Status"
@@ -159,7 +151,7 @@
                                     ></v-text-field>
                                     </v-flex>
                                     <v-flex xs3 d-flex>
-                                    <v-select 
+                                    <v-select
                                     :items="area"
                                     value="area.value"
                                     label="Area"
@@ -176,9 +168,9 @@
                                 </v-layout>
                                 </v-container>
                                 <v-card-actions>
-                                    <img :src="imageUrl" height="150" v-if="imageUrl"/>				       
+                                    <img :src="imageUrl" height="150" v-if="imageUrl"/>
                                     <v-spacer></v-spacer>
-                                    <v-btn flat color="#A94E93" >Cancel</v-btn>
+                                    <v-btn flat color="#A94E93" @click="editTicketDialog = false">Cancel</v-btn>
                                     <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
                                 </v-card-actions>
                             </v-card>
@@ -239,7 +231,7 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select 
+              <v-select
               :items="area"
               value="area.value"
               label="Area"
@@ -254,7 +246,7 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-            
+
             <img :src="imageUrl" height="150" v-if="imageUrl"/>
             <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
 				<input
@@ -263,8 +255,8 @@
 					ref="image"
 					accept="image/*"
 					@change="onFilePicked"
-				>          
-            
+				>
+
             <v-spacer></v-spacer>
           <v-btn flat color="#A94E93" >Cancel</v-btn>
           <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
@@ -273,7 +265,7 @@
       </form>
     </v-dialog>
 
-    
+
 
   </v-app>
 
@@ -289,7 +281,6 @@ import axios from 'axios'
       imageName: '',
       imageUrl: '',
       imageFile: '',
-      dialog: false,
       area: [
         { text: 'ELECTRIC', value: 'ELECTRIC' },
         { text: 'CLEANING', value: '' }, //TODO
@@ -355,7 +346,7 @@ import axios from 'axios'
             sortable: false,
           }
         ],
-        adminTickets: [        
+        adminTickets: [
           {
               ticketId: '00',
               itemId: '1234',
@@ -370,7 +361,7 @@ import axios from 'axios'
               itemName: 'table',
               issueDescription: 'description of issue',
               location: 'location2',
-              status: 'HIGH' 
+              status: 'HIGH'
           }
         ]
     }),
@@ -382,17 +373,37 @@ import axios from 'axios'
       //TODO GET adminTickets
       //TODO POST ticket
       //TODO PUT ticket
-      
+
+      editTicket: function (id){
+       editTicketDialog = true;
+       console.log(id);
+       currentTicket = {
+         ticketId: '00',
+         itemId: '1234',
+         itemName: 'chair',
+         issueDescription: 'description of issue',
+         location: 'location1',
+         status: 'LOW'
+       }
+      },
+
       submitTicket: function () {
         axios(
           {
-            method: 'post',
+            method: 'put',
             url: 'http://10.43.102.7:8080/',
-            data: 'algo'//TODO
+            data: {
+              ticketId: '00',
+              itemId: '1234',
+              itemName: 'chair',
+              issueDescription: 'description of issue',
+              location: 'location1',
+              status: 'LOW'
+            }
           }
         )
         .then(response => {
-            console.log(response.data);            
+            console.log(response.data);
         })
         .catch(error => {
           console.log(error);
@@ -402,7 +413,7 @@ import axios from 'axios'
       pickFile () {
             this.$refs.image.click ()
         },
-		
+
       onFilePicked (e) {
         const files = e.target.files
         if(files[0] !== undefined) {
@@ -422,7 +433,7 @@ import axios from 'axios'
           this.imageUrl = ''
         }
       }
-      
+
     }
   }
 

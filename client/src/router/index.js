@@ -11,11 +11,11 @@ import adminView from '@/components/adminView'
 import maintenaceDashboard from '@/components/maintenanceDashboardView'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
-Vue.use(Router)
-Vue.use(Vuetify)
-Vue.component('ongoing-tickets-component', ticketsViewOngoing)
-Vue.component('pending-tickets-component', ticketsViewPending)
-Vue.component('fixed-tickets-component', ticketsViewFixed)
+Vue.use(Router);
+Vue.use(Vuetify);
+Vue.component('ongoing-tickets-component', ticketsViewOngoing);
+Vue.component('pending-tickets-component', ticketsViewPending);
+Vue.component('fixed-tickets-component', ticketsViewFixed);
 
 
 
