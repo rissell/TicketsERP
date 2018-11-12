@@ -102,8 +102,8 @@
                 <v-data-table :headers="adminHeaders" :items="adminTickets" hide-actions class="elevation-1">
                     <template slot="items" slot-scope="props">
                     <td>{{ props.item.id }}</td>
-                    <td class="text-xs-right">{{ props.item.value }}</td>
                     <td class="text-xs-right">{{ props.item.name }}</td>
+                    <td class="text-xs-right">{{ props.item.desc }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
                     <td class="text-xs-right">
                         <v-btn @click="editTicketDialog = true" color="#A94E93" dark>Edit status</v-btn>
@@ -124,7 +124,7 @@
                                         prepend-icon="business"
                                         label="Reported item ID"
                                         placeholder= props.item.itemId
-                                        disabled="true"
+                                       disabled
                                     ></v-text-field>
                                     </v-flex>
                                     <v-flex xs6>
@@ -132,7 +132,7 @@
                                         prepend-icon="business"
                                         label="Description of issue"
                                         placeholder= props.item.issueDescription
-                                        disabled="true"
+                                       disabled
                                     ></v-text-field>
                                     </v-flex>
                                     <v-flex xs6>
@@ -147,7 +147,7 @@
                                         prepend-icon="business"
                                         label="Location"
                                         placeholder= props.item.location
-                                        disabled="true"
+                                       disabled
                                     ></v-text-field>
                                     </v-flex>
                                     <v-flex xs3 d-flex>
@@ -155,14 +155,14 @@
                                     :items="area"
                                     value="area.value"
                                     label="Area"
-                                    disabled="true"
+                                   disabled
                                     ></v-select>
                                     </v-flex>
                                     <v-flex xs3 d-flex>
                                     <v-select
                                     :items="priorities"
                                     label="Priority"
-                                    disabled="true"
+                                   disabled
                                     ></v-select>
                                     </v-flex>
                                 </v-layout>
@@ -387,16 +387,16 @@ import axios from 'axios'
         },
 
       onFilePicked (e) {
-        const files = e.target.files
+        const files = e.target.files;
         if(files[0] !== undefined) {
-          this.imageName = files[0].name
+          this.imageName = files[0].name;
           if(this.imageName.lastIndexOf('.') <= 0) {
             return
           }
-          const fr = new FileReader ()
-          fr.readAsDataURL(files[0])
+          const fr = new FileReader ();
+          fr.readAsDataURL(files[0]);
           fr.addEventListener('load', () => {
-            this.imageUrl = fr.result
+            this.imageUrl = fr.result;
             this.imageFile = files[0] // this is an image file that can be sent to server...
           })
         } else {
@@ -407,12 +407,12 @@ import axios from 'axios'
       },
 
       getTickets: function () {
-        axios.get('http://10.43.101.94:8080/pending')
+        axios.get('http://10.43.101.94:8080/admin')
           .then(response => {
             console.log(response.data);
             let i=0;
             for(i in response.data){
-              this.adminTickets.push({id: response.data[i][0], name: response.data[i][3]});
+              this.adminTickets.push({id: response.data[i][0], desc: response.data[i][2], name: response.data[i][3]});
             }
 
           })

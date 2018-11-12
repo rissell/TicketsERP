@@ -148,9 +148,8 @@
             </v-flex>
             <v-flex xs3 d-flex>
               <v-select
-              :items="area"
-              value="area.value"
-              label="Area"
+                v-model="currentTicket.area"
+                :options="area"
               ></v-select>
             </v-flex>
             <v-flex xs3 d-flex>
@@ -188,12 +187,12 @@
       imageUrl: '',
       imageFile: '',
       area: [
-        { text: 'ELECTRIC', value: 'ELECTRIC' },
-        { text: 'CLEANING', value: '' }, //TODO
-        { text: 'IT' },
-        { text: 'STORAGE' },
-        { text: 'MAINTENANCE' },
-        { text: 'SECURITY' }
+        { id: 'ELECTRIC', label: 'ELECTRIC' },
+        { id: 'CLEANING', label: 'CLEANING' }, //TODO
+        { id: 'IT', label : 'IT'},
+        { id: 'STORAGE', label: 'STORAGE' },
+        { id: 'MAINTENANCE', label : 'MAINTENANCE'},
+        { id: 'SECURITY', label : 'SECURITY'}
       ],
 
       priorities: [
@@ -226,13 +225,16 @@
         axios(
           {
             method: 'post',
-            url: 'http://10.43.101.94:8080/?item='+this.currentTicket.id+'&desc='+this.currentTicket.desc+'&loc='+this.currentTicket.loc+'&area='+this.currentTicket.area,
+            url: 'http://10.43.101.94:8080/addTicket?item='+this.currentTicket.id+'&desc='+this.currentTicket.desc+'&loc='+this.currentTicket.loc+'&area='+this.currentTicket.area,
           }
         )
         .then(response => {
-            console.log(response.data);
+          this.currentTicket={};
+          this.newTicketDialog=false;
+          console.log(response.data);
         })
         .catch(error => {
+          this.newTicketDialog=false;
           console.log(error);
         })
       },
