@@ -76,11 +76,11 @@
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Odoo Tickets</span>
       </v-toolbar-title>
-      
+
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <span class="hidden-sm-and-down">Today, {{datetime}}</span>
       </v-toolbar-title>
-      
+
       <v-spacer></v-spacer>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <span class="hidden-sm-and-down">Welcome, {{username}}</span>
@@ -127,24 +127,27 @@
             </v-flex>
             <v-flex xs12>
               <v-text-field
+                v-model="currentTicket.id"
                 prepend-icon="business"
                 placeholder="Reported item ID"
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
+                v-model="currentTicket.desc"
                 prepend-icon="business"
                 placeholder="Description of issue"
               ></v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
+                v-model="currentTicket.loc"
                 prepend-icon="business"
                 placeholder="Location"
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select 
+              <v-select
               :items="area"
               value="area.value"
               label="Area"
@@ -162,14 +165,7 @@
 
           <img :src="imageUrl" height="150" v-if="imageUrl"/>
           <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
-					<input
-						type="file"
-						style="display: none"
-						ref="image"
-						accept="image/*"
-						@change="onFilePicked"
-					>
-
+					<input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
           <v-spacer></v-spacer>
           <v-btn flat color="primary" >Cancel</v-btn>
           <v-btn type="submit" @click="submitTicket" flat color="primary" >Save</v-btn>
@@ -185,12 +181,12 @@
   import axios from 'axios'
   export default {
     data: () => ({
+      currentTicket:{},
       title: "Image Upload",
       dialog: false,
       imageName: '',
       imageUrl: '',
       imageFile: '',
-      dialog: false,
       area: [
         { text: 'ELECTRIC', value: 'ELECTRIC' },
         { text: 'CLEANING', value: '' }, //TODO
@@ -199,7 +195,7 @@
         { text: 'MAINTENANCE' },
         { text: 'SECURITY' }
       ],
-      
+
       priorities: [
         { text: 'HIGH', value: '1' },
         { text: 'LOW', value: '0' }
@@ -225,17 +221,16 @@
       source: String
     },
     methods: {
-      
+
       submitTicket: function () {
         axios(
           {
             method: 'post',
-            url: 'http://10.43.102.7:8080/',
-            data: 'algo'//TODO
+            url: 'http://10.43.101.94:8080/?item='+this.currentTicket.id+'&desc='+this.currentTicket.desc+'&loc='+this.currentTicket.loc+'&area='+this.currentTicket.area,
           }
         )
         .then(response => {
-            console.log(response.data);            
+            console.log(response.data);
         })
         .catch(error => {
           console.log(error);
@@ -245,27 +240,26 @@
       pickFile () {
             this.$refs.image.click ()
         },
-		
+
       onFilePicked (e) {
-        const files = e.target.files
+        const files = e.target.files;
         if(files[0] !== undefined) {
-          this.imageName = files[0].name
+          this.imageName = files[0].name;
           if(this.imageName.lastIndexOf('.') <= 0) {
             return
           }
-          const fr = new FileReader ()
-          fr.readAsDataURL(files[0])
+          const fr = new FileReader ();
+          fr.readAsDataURL(files[0]);
           fr.addEventListener('load', () => {
-            this.imageUrl = fr.result
+            this.imageUrl = fr.result;
             this.imageFile = files[0] // this is an image file that can be sent to server...
           })
         } else {
-          this.imageName = ''
-          this.imageFile = ''
-          this.imageUrl = ''
+          this.imageName = '';
+          this.imageFile = '';
+          this.imageUrl = '';
         }
       }
-    
     }
   }
 </script>

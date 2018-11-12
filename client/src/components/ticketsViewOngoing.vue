@@ -26,7 +26,7 @@
   import axios from 'axios'
   import Vue from 'vue'
   export default {
-      
+
     data () {
       return {
         search: '',
@@ -46,14 +46,14 @@
       //edit comlumn
 
       getTickets: function () {
-        axios.get('http://10.43.102.7:8080/ongoing')
+        axios.get('http://10.43.101.94:8080/ongoing')
         .then(response => {
             console.log(response.data);
             let i=0;
             for(i in response.data){
                 this.ticketsToShow.push({value: response.data[i][0], name: response.data[i][1]});
             }
-            
+
         })
         .catch(error => {
           console.log(error);

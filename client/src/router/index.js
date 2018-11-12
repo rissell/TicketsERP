@@ -17,8 +17,6 @@ Vue.component('ongoing-tickets-component', ticketsViewOngoing);
 Vue.component('pending-tickets-component', ticketsViewPending);
 Vue.component('fixed-tickets-component', ticketsViewFixed);
 
-
-
 export default new Router({
   mode: 'history',
   routes: [

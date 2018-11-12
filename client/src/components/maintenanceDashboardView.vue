@@ -76,11 +76,11 @@
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Odoo Tickets</span>
       </v-toolbar-title>
-      
+
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <span class="hidden-sm-and-down">Today, {{datetime}}</span>
       </v-toolbar-title>
-      
+
       <v-spacer></v-spacer>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <span class="hidden-sm-and-down">Welcome, {{username}}</span>
@@ -92,7 +92,7 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-            <v-card>    
+            <v-card>
                 <v-card-title>
                     <h2>
                     Submitted tickets
@@ -163,7 +163,7 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select 
+              <v-select
               :items="area"
               value="area.value"
               label="Area"
@@ -218,7 +218,7 @@ import axios from 'axios'
         { text: 'MAINTENANCE' },
         { text: 'SECURITY' }
       ],
-      
+
       priorities: [
         { text: 'HIGH', value: '1' },
         { text: 'LOW', value: '0' }
@@ -271,7 +271,7 @@ import axios from 'axios'
             value: 'status'
           }
         ],
-        adminTickets: [        
+        adminTickets: [
           {
               ticketId: '00',
               itemName: 'chair',
@@ -296,27 +296,27 @@ import axios from 'axios'
       //TODO GET adminTickets
       //TODO POST ticket
       //TODO PUT ticket
-      
+
       submitTicket: function () {
         axios(
           {
             method: 'post',
-            url: 'http://10.43.102.7:8080/',
+            url: 'http://10.43.101.94:8080/',
             data: 'algo'//TODO
           }
         )
         .then(response => {
-            console.log(response.data);            
+            console.log(response.data);
         })
         .catch(error => {
           console.log(error);
         })
       },
-      
+
       pickFile () {
             this.$refs.image.click ()
         },
-		
+
       onFilePicked (e) {
         const files = e.target.files
         if(files[0] !== undefined) {

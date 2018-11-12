@@ -25,7 +25,7 @@
 <script>
   import axios from 'axios'
   export default {
-      
+
     data () {
       return {
         search: '',
@@ -45,14 +45,14 @@
       //edit comlumn
 
       getPendingTickets: function () {
-        axios.get('http://10.43.102.7:8080/pending')
+        axios.get('http://10.43.101.94:8080/pending')
         .then(response => {
             console.log(response.data);
             let i=0;
             for(i in response.data){
                 this.ticketsToShow.push({value: response.data[i][0], name: response.data[i][1]});
             }
-            
+
         })
         .catch(error => {
           console.log(error);

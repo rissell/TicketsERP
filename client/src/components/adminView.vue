@@ -101,12 +101,12 @@
                 </v-card-title>
                 <v-data-table :headers="adminHeaders" :items="adminTickets" hide-actions class="elevation-1">
                     <template slot="items" slot-scope="props">
-                    <td>{{ props.item.ticketId }}</td>
-                    <td class="text-xs-right">{{ props.item.itemName }}</td>
-                    <td class="text-xs-right">{{ props.item.issueDescription }}</td>
+                    <td>{{ props.item.id }}</td>
+                    <td class="text-xs-right">{{ props.item.value }}</td>
+                    <td class="text-xs-right">{{ props.item.name }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
                     <td class="text-xs-right">
-                        <v-btn @click="editTicket(props.item.ticketId)" color="#A94E93" dark>Edit status</v-btn>
+                        <v-btn @click="editTicketDialog = true" color="#A94E93" dark>Edit status</v-btn>
                         <v-dialog v-model="editTicketDialog" width="800px">
                             <form method="post" @submit.prevent="submitTicket">
                             <v-card>
@@ -276,6 +276,7 @@
 import axios from 'axios'
   export default {
     data: () => ({
+      currentTicket:{},
       title: "Image Upload",
       dialog: false,
       imageName: '',
@@ -347,22 +348,7 @@ import axios from 'axios'
           }
         ],
         adminTickets: [
-          {
-              ticketId: '00',
-              itemId: '1234',
-              itemName: 'chair',
-              issueDescription: 'description of issue',
-              location: 'location1',
-              status: 'LOW'
-          },
-          {
-              ticketId: '01',
-              itemId: '2323',
-              itemName: 'table',
-              issueDescription: 'description of issue',
-              location: 'location2',
-              status: 'HIGH'
-          }
+
         ]
     }),
     props: {
@@ -375,31 +361,17 @@ import axios from 'axios'
       //TODO PUT ticket
 
       editTicket: function (id){
-       editTicketDialog = true;
+       this.editTicketDialog = true;
        console.log(id);
-       currentTicket = {
-         ticketId: '00',
-         itemId: '1234',
-         itemName: 'chair',
-         issueDescription: 'description of issue',
-         location: 'location1',
-         status: 'LOW'
+       this.currentTicket = {
        }
       },
 
       submitTicket: function () {
         axios(
           {
-            method: 'put',
-            url: 'http://10.43.102.7:8080/',
-            data: {
-              ticketId: '00',
-              itemId: '1234',
-              itemName: 'chair',
-              issueDescription: 'description of issue',
-              location: 'location1',
-              status: 'LOW'
-            }
+            method: 'post',
+            url: 'http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.status+'&id='+this.currentTicket.id,
           }
         )
         .then(response => {
@@ -428,12 +400,31 @@ import axios from 'axios'
             this.imageFile = files[0] // this is an image file that can be sent to server...
           })
         } else {
-          this.imageName = ''
-          this.imageFile = ''
-          this.imageUrl = ''
+          this.imageName = '';
+          this.imageFile = '';
+          this.imageUrl = '';
         }
+      },
+
+      getTickets: function () {
+        axios.get('http://10.43.101.94:8080/pending')
+          .then(response => {
+            console.log(response.data);
+            let i=0;
+            for(i in response.data){
+              this.adminTickets.push({id: response.data[i][0], name: response.data[i][3]});
+            }
+
+          })
+          .catch(error => {
+            console.log(error);
+          })
       }
 
+    },
+
+    mounted: function() {
+      this.getTickets()
     }
   }
 
