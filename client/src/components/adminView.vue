@@ -369,7 +369,7 @@ import axios from 'axios'
             console.log(response.data);
             let i=0;
             for(i in response.data){
-              this.adminTickets.push({id: response.data[i][1], desc: response.data[i][2], name: response.data[i][3]});
+              this.adminTickets.push({id: response.data[i][1], desc: response.data[i][2], name: response.data[i][3], status: response.data[i][4]});
             }
 
           })
