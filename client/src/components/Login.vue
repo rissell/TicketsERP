@@ -31,7 +31,6 @@
 
 <script>
 import axios from 'axios'
-import AuthService from '@/services/AuthService'
 export default {
   data () {
     return {
@@ -51,11 +50,11 @@ export default {
         .then(response => {
           console.log(response.data);
             if(response.data != "Deny"){
-               if(response.data == "User"){
+               if(response.data == 'user'){
                 this.$router.push('/user');
-               }else if(response.data == "Staff"){
+               }else if(response.data == "staff"){
                 this.$router.push('/maintenance');
-               }else {
+               }else if(response.data == "admin"){
                  this.$router.push('/admin');
                }
             }else{
