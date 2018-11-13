@@ -107,76 +107,6 @@
                     <td class="text-xs-right">{{ props.item.status }}</td>
                     <td class="text-xs-right">
                         <v-btn @click="editTicket(props.item.id)" color="#A94E93" dark>Edit status</v-btn>
-                        <v-dialog v-model="editTicketDialog" width="800px">
-                            <form method="post" @submit.prevent="editTicket">
-                            <v-card>
-                                <v-card-title class="grey lighten-4 py-4 title">
-                                Edit Ticket # {{props.item.id}} Status
-                                </v-card-title>
-                                <v-container grid-list-sm class="pa-4">
-                                <v-layout row wrap>
-                                    <v-flex xs12 align-center justify-space-between>
-                                    <v-layout align-center>
-                                    </v-layout>
-                                    </v-flex>
-                                    <v-flex xs12>
-                                    <v-text-field
-                                        prepend-icon="business"
-                                        label="Reported item ID"
-                                        :placeholder= props.item.id
-                                       disabled
-                                    ></v-text-field>
-                                    </v-flex>
-                                    <v-flex xs6>
-                                    <v-text-field
-                                        prepend-icon="business"
-                                        label="Description of issue"
-                                        :placeholder= props.item.desc
-                                       disabled
-                                    ></v-text-field>
-                                    </v-flex>
-                                    <v-flex xs6>
-                                    <v-select
-                                    :items="statusOfTicket"
-                                    value="statusOfTicket.value"
-                                    label="Status"
-                                    ></v-select>
-                                    </v-flex>
-                                    <v-flex xs6>
-                                    <v-text-field
-                                        prepend-icon="business"
-                                        label="Location"
-                                        :placeholder= props.item.location
-                                       disabled
-                                    ></v-text-field>
-                                    </v-flex>
-                                    <v-flex xs3 d-flex>
-                                    <v-select
-                                    :items="area"
-                                    value="area.value"
-                                    label="Area"
-                                    disabled
-                                    ></v-select>
-                                    </v-flex>
-                                    <v-flex xs3 d-flex>
-                                    <v-select
-                                    :items="priorities"
-                                    label="Priority"
-                                    disabled
-                                    ></v-select>
-                                    </v-flex>
-                                </v-layout>
-                                </v-container>
-                                <v-card-actions>
-                                    <img :src="imageUrl" height="150" v-if="imageUrl"/>
-                                    <v-spacer></v-spacer>
-                                    <v-btn flat color="#A94E93" @click="editTicketDialog = false">Cancel</v-btn>
-                                    <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                            </form>
-                        </v-dialog>
-
                     </td>
                     </template>
                 </v-data-table>
@@ -185,17 +115,7 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-btn
-      fab
-      bottom
-      right
-      color="#A94E93"
-      dark
-      fixed
-      @click="newTicketDialog = !newTicketDialog"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
+
 
 
     <v-dialog v-model="newTicketDialog" width="800px">
@@ -204,7 +124,7 @@
         <v-card-title
           class="grey lighten-4 py-4 title"
         >
-          Create Ticket
+          Edit Ticket {{this.currentTicket.id}}
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
@@ -213,10 +133,10 @@
               </v-layout>
             </v-flex>
             <v-flex xs12>
-              <v-text-field prepend-icon="business"
-              <input
-                
+              <v-text-field 
+                prepend-icon="business"               
                 placeholder="Reported item ID"
+                v-model="currentTicket.itemId"
               >
               </v-text-field>
             </v-flex>
@@ -224,24 +144,35 @@
               <v-text-field
                 prepend-icon="business"
                 placeholder="Description of issue"
+                v-model="currentTicket.desc"
               ></v-text-field>
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs3>
               <v-text-field
                 prepend-icon="business"
                 placeholder="Location"
+                v-model="currentTicket.loc"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs3>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Status"
+                v-model="currentTicket.status"
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
               <v-text-field
                 prepend-icon="business"
                 placeholder="Area"
+                v-model="currentTicket.area"
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
               <v-text-field
                 prepend-icon="business"
                 placeholder="Priority"
+                v-model="currentTicket.priority"
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -260,7 +191,8 @@
 
             <v-spacer></v-spacer>
           <v-btn flat color="#A94E93" >Cancel</v-btn>
-          <v-btn type="submit" @click="submitTicket(this.reportedItemId)" flat color="#A94E93" >Save</v-btn>
+
+          <v-btn type="submit" @click="updateTicket()" flat color="#A94E93" >Update</v-btn>
         </v-card-actions>
       </v-card>
       </form>
@@ -349,29 +281,7 @@ import axios from 'axios'
           }
         ],
         adminTickets: [
-          {
-          id: '45687',
-          name: 'test name',
-          desc: 'test description',
-          status: 'ongoing',
-          priority: 'HIGH',
-          location: 'building X'
-          },
-          {
-          id: '11111',
-          name: 'test name',
-          desc: 'test description',
-          status: 'ongoing',
-          priority: 'HIGH',
-          location: 'building X'
-          },
-          {
-          id: '00000',
-          name: 'test name',
-          desc: 'test description',
-          status: 'ongoing',
-          priority: 'HIGH'
-          }
+
         ]
     }),
     props: {
@@ -382,24 +292,43 @@ import axios from 'axios'
       //TODO GET adminTickets
       //TODO POST ticket
       //TODO PUT ticket
+      updateTicket: function(){
+        axios.post('http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.status+'&id='+this.currentTicket.id)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
 
       editTicket: function (id){
-       this.editTicketDialog = true;
        console.log("EDIT TICKET ID: ");
        console.log(id);
-       //let allEditableTickets = this.getTickets();
-       let allEditableTickets = this.adminTickets;
-       console.log(allEditableTickets);
-       this.currentTicket = {
-        id: ''
-       }
+       axios.get('http://10.43.101.94:8080/tickets?id='+id)
+                  .then(response => {
+                    console.log(response.data);
+                    this.currentTicket.itemId = response.data[0][0];
+                    this.currentTicket.id = response.data[0][1];
+                    this.currentTicket.desc = response.data[0][2];
+                    this.currentTicket.loc = response.data[0][3];
+                    this.currentTicket.area = response.data[0][6];
+                    this.currentTicket.image = response.data[0][5];
+                    this.currentTicket.status = response.data[0][4];
+                    this.currentTicket.priority = response.data[0][9];
+                    this.currentTicket.date = response.data[0][7];
+                    this.newTicketDialog = true;
+                  })
+                  .catch(error => {
+                    console.log(error);
+                  })
       },
 
       submitTicket: function (itemId) {
         axios(
           {
             method: 'post',
-            url: 'http://10.43.101.94:8080/updateTicket?status='+currentTicket.id+'&id='+this.currentTicket.id,
+            url: 'http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.id+'&id='+this.currentTicket.id,
           }
         )
         .then(response => {
@@ -440,7 +369,7 @@ import axios from 'axios'
             console.log(response.data);
             let i=0;
             for(i in response.data){
-              this.adminTickets.push({id: response.data[i][0], desc: response.data[i][2], name: response.data[i][3]});
+              this.adminTickets.push({id: response.data[i][1], desc: response.data[i][2], name: response.data[i][3]});
             }
 
           })

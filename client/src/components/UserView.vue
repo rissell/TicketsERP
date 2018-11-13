@@ -147,16 +147,16 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select
+              <v-text-field
                 v-model="currentTicket.area"
-                :options="area"
-              ></v-select>
+                placeholder="area"
+              ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select
-              :items="priorities"
-              label="Priority"
-              ></v-select>
+              <v-text-field
+              placeholder="priorities"
+              v-model="currentTicket.priority"
+              ></v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
@@ -167,7 +167,7 @@
 					<input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
           <v-spacer></v-spacer>
           <v-btn flat color="primary" >Cancel</v-btn>
-          <v-btn type="submit" @click="submitTicket" flat color="primary" >Save</v-btn>
+          <v-btn  type="submit" @click="submitTicket()" flat color="#A94E93" >Save</v-btn>
         </v-card-actions>
       </v-card>
       </form>
