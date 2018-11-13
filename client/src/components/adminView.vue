@@ -14,7 +14,7 @@
             row
             align-center
           >
-            <v-flex xs6>
+            <v-flex xs6 @click="redirectToPath()">
               <v-subheader v-if="item.heading">
                 {{ item.heading }}
               </v-subheader>

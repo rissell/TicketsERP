@@ -224,19 +224,36 @@
       submitTicket: function () {
         axios(
           {
-            method: 'post',
-            url: 'http://10.43.101.94:8080/addTicket?item='+this.currentTicket.id+'&desc='+this.currentTicket.desc+'&loc='+this.currentTicket.loc+'&area='+this.currentTicket.area,
+            method: 'get',
+            url: 'http://10.43.101.94:8080/inventory?item='+this.currentTicket.id,
           }
         )
         .then(response => {
-          this.currentTicket={};
-          this.newTicketDialog=false;
-          console.log(response.data);
+
+              console.log(response.data);
+          if( response.data  ) {
+              axios(
+              {
+                method: 'post',
+                url: 'http://10.43.101.94:8080/addTicket?item='+this.currentTicket.id+'&desc='+this.currentTicket.desc+'&loc='+this.currentTicket.loc+'&area='+this.currentTicket.area,
+              }
+            )
+            .then(response => {
+              this.currentTicket={};
+              this.newTicketDialog=false;
+              console.log(response.data);
+            })
+            .catch(error => {
+              this.newTicketDialog=false;
+              console.log(error);
+            })
+          }
         })
         .catch(error => {
           this.newTicketDialog=false;
           console.log(error);
         })
+
       },
 
       pickFile () {
