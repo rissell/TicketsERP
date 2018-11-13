@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script></head>
+<body onload="populateDropdown()">
+
+<p>User:</p>
+<select id="users" onchange="currMail = this.value;">
+</select>
+
+<p>User role:</p>
+<input id="role" type="text">
+
+<p>Crew Area:</p>
+    <input id="area" type="text">
+<button type="button" onclick="onSubmit()">
+    Apply changes
+</button>
+
+<table>
+    
+</table>
+
+<script>
+    var currMail;
+    var currRole;
+    var currArea;
+function onSubmit(){
+    currMail =  $('#users').val()
+    currRole = $('#role').val();
+    currArea = $('#area').val();
+
+
+    url = "login=" + currMail + "&rol=" + currRole +"&area=" + currArea
+    console.log(url)
+    $.post("http://127.0.0.1:8080/updateUser?"+ url)
+}
+function populateDropdown(){
+    $.get("http://127.0.0.1:8080/dropdown", function(data, status){
+        console.log(data);
+        for(user in data){
+            $('#users').append("<option value=" + data[user]['login'] + ">" + data[user]['login'] + "</option>");
+            // console.log(data[user]['login'])
+        }
+    });
+
+
+}
+
+</script>
+</body>
+</html>
