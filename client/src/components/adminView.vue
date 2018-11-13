@@ -393,7 +393,8 @@ import axios from 'axios'
     },
 
     mounted: function() {
-      this.getTickets()
+      this.getTickets();
+      console.log(g_username);
     },
 
   }
