@@ -14,7 +14,7 @@
             row
             align-center
           >
-            <v-flex xs6 @click="redirectToPath()">
+            <v-flex xs6>
               <v-subheader v-if="item.heading">
                 {{ item.heading }}
               </v-subheader>
@@ -40,7 +40,7 @@
             <v-list-tile
               v-for="(child, i) in item.children"
               :key="i"
-              @click=""
+              @click="redirectToPathUser()"
             >
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
@@ -52,7 +52,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else :key="item.text" @click="">
+          <v-list-tile v-else :key="item.text" @click="redirectToPathMaintenance()">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -376,7 +376,15 @@ import axios from 'axios'
           .catch(error => {
             console.log(error);
           })
-      }
+      },
+
+      redirectToPathMaintenance: function() {
+        this.$router.push('/maintenance');  
+      },
+
+      redirectToPathUser: function() {
+        this.$router.push('/user');  
+      },
 
     },
 
@@ -386,7 +394,8 @@ import axios from 'axios'
 
     mounted: function() {
       this.getTickets()
-    }
+    },
+
   }
 
 </script>

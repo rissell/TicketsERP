@@ -231,7 +231,7 @@
         .then(response => {
 
               console.log(response.data);
-          if( response.data  ) {
+          if( response.data == "true" ) {
               axios(
               {
                 method: 'post',
@@ -247,6 +247,8 @@
               this.newTicketDialog=false;
               console.log(error);
             })
+          }else{
+            alert("The product does NOT exists.");
           }
         })
         .catch(error => {
