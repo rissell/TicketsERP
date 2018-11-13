@@ -15,11 +15,11 @@
                 <h4>Login</h4>
                 </v-card-title>
                 <v-form>
-                <v-text-field prepend-icon="person" name="Username" label="Username" v-model="email"></v-text-field>
-                <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="password"></v-text-field>
-                <v-card-actions>
-                <v-btn @click="login" primary large block>Login</v-btn>
-                </v-card-actions>
+                  <v-text-field prepend-icon="person" name="Username" label="Username" v-model="email"></v-text-field>
+                  <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="password"></v-text-field>
+                  <v-card-actions>
+                  <v-btn @click="login" primary large block>Login</v-btn>
+                  </v-card-actions>
                 </v-form>
             </v-card>
             </v-container>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 import AuthService from '@/services/AuthService'
 export default {
   data () {
@@ -41,11 +41,22 @@ export default {
   },
   methods: {
     async login () {
-      const response = await AuthService.login({
-        email: this.email,
-        password: this.password
-      })
-      console.log(response.data)
+        axios(
+          {
+            method: 'post',
+            url: 'http://10.43.101.94:8080/login?user='+this.email+'&psw='+this.password,
+            //url: 'http://10.43.101.94:8080/login?user='+currentTicket.id+'&id='+this.currentTicket.id,
+          }
+        )
+        .then(response => {
+          console.log(response.data);
+            if(response.data == "success"){
+               this.$router.push('/admin');
+            }
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
   }
 }

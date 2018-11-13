@@ -106,12 +106,12 @@
                     <td class="text-xs-right">{{ props.item.desc }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
                     <td class="text-xs-right">
-                        <v-btn @click="editTicketDialog = true" color="#A94E93" dark>Edit status</v-btn>
+                        <v-btn @click="editTicket(props.item.id)" color="#A94E93" dark>Edit status</v-btn>
                         <v-dialog v-model="editTicketDialog" width="800px">
-                            <form method="post" @submit.prevent="submitTicket">
+                            <form method="post" @submit.prevent="editTicket">
                             <v-card>
                                 <v-card-title class="grey lighten-4 py-4 title">
-                                Edit Ticket # {{props.item.ticketId}} Status
+                                Edit Ticket # {{props.item.id}} Status
                                 </v-card-title>
                                 <v-container grid-list-sm class="pa-4">
                                 <v-layout row wrap>
@@ -123,7 +123,7 @@
                                     <v-text-field
                                         prepend-icon="business"
                                         label="Reported item ID"
-                                        placeholder= props.item.itemId
+                                        :placeholder= props.item.id
                                        disabled
                                     ></v-text-field>
                                     </v-flex>
@@ -131,7 +131,7 @@
                                     <v-text-field
                                         prepend-icon="business"
                                         label="Description of issue"
-                                        placeholder= props.item.issueDescription
+                                        :placeholder= props.item.desc
                                        disabled
                                     ></v-text-field>
                                     </v-flex>
@@ -146,7 +146,7 @@
                                     <v-text-field
                                         prepend-icon="business"
                                         label="Location"
-                                        placeholder= props.item.location
+                                        :placeholder= props.item.location
                                        disabled
                                     ></v-text-field>
                                     </v-flex>
@@ -155,14 +155,14 @@
                                     :items="area"
                                     value="area.value"
                                     label="Area"
-                                   disabled
+                                    disabled
                                     ></v-select>
                                     </v-flex>
                                     <v-flex xs3 d-flex>
                                     <v-select
                                     :items="priorities"
                                     label="Priority"
-                                   disabled
+                                    disabled
                                     ></v-select>
                                     </v-flex>
                                 </v-layout>
@@ -213,10 +213,12 @@
               </v-layout>
             </v-flex>
             <v-flex xs12>
-              <v-text-field
-                prepend-icon="business"
+              <v-text-field prepend-icon="business"
+              <input
+                
                 placeholder="Reported item ID"
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
@@ -231,17 +233,16 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select
-              :items="area"
-              value="area.value"
-              label="Area"
-              ></v-select>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Area"
+              ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select
-              :items="priorities"
-              label="Priority"
-              ></v-select>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Priority"
+              ></v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
@@ -259,7 +260,7 @@
 
             <v-spacer></v-spacer>
           <v-btn flat color="#A94E93" >Cancel</v-btn>
-          <v-btn type="submit" @click="submitTicket" flat color="#A94E93" >Save</v-btn>
+          <v-btn type="submit" @click="submitTicket(this.reportedItemId)" flat color="#A94E93" >Save</v-btn>
         </v-card-actions>
       </v-card>
       </form>
@@ -348,7 +349,29 @@ import axios from 'axios'
           }
         ],
         adminTickets: [
-
+          {
+          id: '45687',
+          name: 'test name',
+          desc: 'test description',
+          status: 'ongoing',
+          priority: 'HIGH',
+          location: 'building X'
+          },
+          {
+          id: '11111',
+          name: 'test name',
+          desc: 'test description',
+          status: 'ongoing',
+          priority: 'HIGH',
+          location: 'building X'
+          },
+          {
+          id: '00000',
+          name: 'test name',
+          desc: 'test description',
+          status: 'ongoing',
+          priority: 'HIGH'
+          }
         ]
     }),
     props: {
@@ -362,16 +385,21 @@ import axios from 'axios'
 
       editTicket: function (id){
        this.editTicketDialog = true;
+       console.log("EDIT TICKET ID: ");
        console.log(id);
+       //let allEditableTickets = this.getTickets();
+       let allEditableTickets = this.adminTickets;
+       console.log(allEditableTickets);
        this.currentTicket = {
+        id: ''
        }
       },
 
-      submitTicket: function () {
+      submitTicket: function (itemId) {
         axios(
           {
             method: 'post',
-            url: 'http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.status+'&id='+this.currentTicket.id,
+            url: 'http://10.43.101.94:8080/updateTicket?status='+currentTicket.id+'&id='+this.currentTicket.id,
           }
         )
         .then(response => {
@@ -421,6 +449,10 @@ import axios from 'axios'
           })
       }
 
+    },
+
+    setItemId: function () {
+      this.currentTicket.id = this.reportedItemId;
     },
 
     mounted: function() {
