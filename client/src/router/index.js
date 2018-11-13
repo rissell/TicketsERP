@@ -19,9 +19,15 @@ Vue.component('fixed-tickets-component', ticketsViewFixed);
 
 export default new Router({
   mode: 'history',
+  //TODO username
   routes: [
     {
       path: '/login',
+      name: 'login',
+      component: login
+    },
+    {
+      path: '/',
       name: 'login',
       component: login
     },

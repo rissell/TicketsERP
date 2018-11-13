@@ -50,8 +50,16 @@ export default {
         )
         .then(response => {
           console.log(response.data);
-            if(response.data == "success"){
-               this.$router.push('/admin');
+            if(response.data != "Deny"){
+               if(response.data == "User"){
+                this.$router.push('/user');
+               }else if(response.data == "Staff"){
+                this.$router.push('/maintenance');
+               }else {
+                 this.$router.push('/admin');
+               }
+            }else{
+              alert("Invalid credentials.");
             }
         })
         .catch(error => {

@@ -40,7 +40,7 @@
             <v-list-tile
               v-for="(child, i) in item.children"
               :key="i"
-              @click=""
+              @click="redirectToPathUser()"
             >
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
@@ -52,7 +52,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else :key="item.text" @click="">
+          <v-list-tile v-else :key="item.text" @click="redirectToPathMaintenance()">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -99,35 +99,23 @@
                     </h2>
                     <v-spacer></v-spacer>
                 </v-card-title>
-                <v-data-table
-                    :headers="adminHeaders"
-                    :items="adminTickets"
-                    hide-actions
-                    class="elevation-1"
-                >
+                <v-data-table :headers="adminHeaders" :items="adminTickets" hide-actions class="elevation-1">
                     <template slot="items" slot-scope="props">
-                    <td>{{ props.item.ticketId }}</td>
-                    <td class="text-xs-right">{{ props.item.itemName }}</td>
-                    <td class="text-xs-right">{{ props.item.issueDescription }}</td>
-                    <td class="text-xs-right">{{ props.item.location }}</td>
+                    <td>{{ props.item.id }}</td>
+                    <td class="text-xs-right">{{ props.item.name }}</td>
+                    <td class="text-xs-right">{{ props.item.desc }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
+                    <td class="text-xs-right">
+                        <v-btn @click="editTicket(props.item.id)" color="#A94E93" dark>Edit status</v-btn>
+                    </td>
                     </template>
                 </v-data-table>
             </v-card>
+
         </v-layout>
       </v-container>
     </v-content>
-    <v-btn
-      fab
-      bottom
-      right
-      color="pink"
-      dark
-      fixed
-      @click="newTicketDialog = !newTicketDialog"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
+
 
 
     <v-dialog v-model="newTicketDialog" width="800px">
@@ -136,7 +124,7 @@
         <v-card-title
           class="grey lighten-4 py-4 title"
         >
-          Create Ticket
+          Edit Ticket {{this.currentTicket.id}}
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
@@ -145,55 +133,72 @@
               </v-layout>
             </v-flex>
             <v-flex xs12>
-              <v-text-field
-                prepend-icon="business"
+              <v-text-field 
+                prepend-icon="business"               
                 placeholder="Reported item ID"
-              ></v-text-field>
+                v-model="currentTicket.itemId"
+              >
+              </v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
                 prepend-icon="business"
                 placeholder="Description of issue"
+                v-model="currentTicket.desc"
               ></v-text-field>
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs3>
               <v-text-field
                 prepend-icon="business"
                 placeholder="Location"
+                v-model="currentTicket.loc"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs3>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Status"
+                v-model="currentTicket.status"
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select
-              :items="area"
-              value="area.value"
-              label="Area"
-              ></v-select>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Area"
+                v-model="currentTicket.area"
+              ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
-              <v-select
-              :items="priorities"
-              label="Priority"
-              ></v-select>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Priority"
+                v-model="currentTicket.priority"
+              ></v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
-          <img :src="imageUrl" height="150" v-if="imageUrl"/>
-          <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
-					<input
-						type="file"
-						style="display: none"
-						ref="image"
-						accept="image/*"
-						@change="onFilePicked"
-					>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" >Cancel</v-btn>
-          <v-btn type="submit" @click="submitTicket" flat color="primary" >Save</v-btn>
+
+            <img :src="imageUrl" height="150" v-if="imageUrl"/>
+            <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
+				<input
+					type="file"
+					style="display: none"
+					ref="image"
+					accept="image/*"
+					@change="onFilePicked"
+				>
+
+            <v-spacer></v-spacer>
+          <v-btn flat color="#A94E93" >Cancel</v-btn>
+
+          <v-btn type="submit" @click="updateTicket()" flat color="#A94E93" >Update</v-btn>
         </v-card-actions>
       </v-card>
       </form>
     </v-dialog>
+
+
 
   </v-app>
 
@@ -204,12 +209,12 @@
 import axios from 'axios'
   export default {
     data: () => ({
+      currentTicket:{},
       title: "Image Upload",
       dialog: false,
       imageName: '',
       imageUrl: '',
       imageFile: '',
-      dialog: false,
       area: [
         { text: 'ELECTRIC', value: 'ELECTRIC' },
         { text: 'CLEANING', value: '' }, //TODO
@@ -218,12 +223,17 @@ import axios from 'axios'
         { text: 'MAINTENANCE' },
         { text: 'SECURITY' }
       ],
-
+      statusOfTicket: [
+        { text: 'PENDING', value: 'Pending' },
+        { text: 'ONGOING', value: 'Ongoing' },
+        { text: 'FIXED', value: 'Fixed' }
+      ],
       priorities: [
         { text: 'HIGH', value: '1' },
         { text: 'LOW', value: '0' }
       ],
       newTicketDialog: false,
+      editTicketDialog: false,
       drawer: null,
       username: 'Rosa',
       datetime: new Date().toISOString().slice(0,10),
@@ -259,33 +269,19 @@ import axios from 'axios'
             value: 'issueDescription'
           },
           {
-            text: 'Location',
-            align: 'center',
-            sortable: true,
-            value: 'location'
-          },
-          {
             text: 'Status',
             align: 'center',
             sortable: true,
             value: 'status'
+          },
+          {
+            text: '',
+            align: 'center',
+            sortable: false,
           }
         ],
         adminTickets: [
-          {
-              ticketId: '00',
-              itemName: 'chair',
-              issueDescription: 'description of issue',
-              status: 'LOW',
-              location: 'building 4, 3rd floor'
-          },
-          {
-              ticketId: '01',
-              itemName: 'table',
-              issueDescription: 'description of issue',
-              status: 'HIGH',
-              location: 'research lab stairs'
-          }
+
         ]
     }),
     props: {
@@ -296,13 +292,43 @@ import axios from 'axios'
       //TODO GET adminTickets
       //TODO POST ticket
       //TODO PUT ticket
+      updateTicket: function(){
+        axios.post('http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.status+'&id='+this.currentTicket.id)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
 
-      submitTicket: function () {
+      editTicket: function (id){
+       console.log("EDIT TICKET ID: ");
+       console.log(id);
+       axios.get('http://10.43.101.94:8080/tickets?id='+id)
+                  .then(response => {
+                    console.log(response.data);
+                    this.currentTicket.itemId = response.data[0][0];
+                    this.currentTicket.id = response.data[0][1];
+                    this.currentTicket.desc = response.data[0][2];
+                    this.currentTicket.loc = response.data[0][3];
+                    this.currentTicket.area = response.data[0][6];
+                    this.currentTicket.image = response.data[0][5];
+                    this.currentTicket.status = response.data[0][4];
+                    this.currentTicket.priority = response.data[0][9];
+                    this.currentTicket.date = response.data[0][7];
+                    this.newTicketDialog = true;
+                  })
+                  .catch(error => {
+                    console.log(error);
+                  })
+      },
+
+      submitTicket: function (itemId) {
         axios(
           {
             method: 'post',
-            url: 'http://10.43.101.94:8080/',
-            data: 'algo'//TODO
+            url: 'http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.id+'&id='+this.currentTicket.id,
           }
         )
         .then(response => {
@@ -318,25 +344,58 @@ import axios from 'axios'
         },
 
       onFilePicked (e) {
-        const files = e.target.files
+        const files = e.target.files;
         if(files[0] !== undefined) {
-          this.imageName = files[0].name
+          this.imageName = files[0].name;
           if(this.imageName.lastIndexOf('.') <= 0) {
             return
           }
-          const fr = new FileReader ()
-          fr.readAsDataURL(files[0])
+          const fr = new FileReader ();
+          fr.readAsDataURL(files[0]);
           fr.addEventListener('load', () => {
-            this.imageUrl = fr.result
+            this.imageUrl = fr.result;
             this.imageFile = files[0] // this is an image file that can be sent to server...
           })
         } else {
-          this.imageName = ''
-          this.imageFile = ''
-          this.imageUrl = ''
+          this.imageName = '';
+          this.imageFile = '';
+          this.imageUrl = '';
         }
-      }
-    }
+      },
+
+      getTickets: function () {
+        axios.get('http://10.43.101.94:8080/admin')
+          .then(response => {
+            console.log(response.data);
+            let i=0;
+            for(i in response.data){
+              this.adminTickets.push({id: response.data[i][1], desc: response.data[i][2], name: response.data[i][3], status: response.data[i][4]});
+            }
+
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      },
+
+      redirectToPathMaintenance: function() {
+        this.$router.push('/maintenance');  
+      },
+
+      redirectToPathUser: function() {
+        this.$router.push('/user');  
+      },
+
+    },
+
+    setItemId: function () {
+      this.currentTicket.id = this.reportedItemId;
+    },
+
+    mounted: function() {
+      this.getTickets()
+    },
+
   }
 
 </script>
