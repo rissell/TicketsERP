@@ -4,8 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-Vue.config.productionTip = false
-Vue.prototype.$g_username = "GLOBAL USER NAME";
+Vue.config.productionTip = false;
+Vue.prototype.$g_username = "";
 
 /* eslint-disable no-new */
 new Vue({

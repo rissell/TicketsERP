@@ -15,7 +15,7 @@
                 <h4>Login</h4>
                 </v-card-title>
                 <v-form>
-                  <v-text-field prepend-icon="person" name="Username" label="Username" v-model="email"></v-text-field>
+                  <v-text-field prepend-icon="person" name="Username" label="Username" v-model="this.$g_username"></v-text-field>
                   <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="password"></v-text-field>
                   <v-card-actions>
                   <v-btn @click="login" primary large block>Login</v-btn>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import axios from 'axios'
 export default {
   data () {
@@ -43,7 +44,7 @@ export default {
         axios(
           {
             method: 'post',
-            url: 'http://10.43.101.94:8080/login?user='+this.email+'&psw='+this.password,
+            url: 'http://10.43.101.94:8080/login?user='+this.$g_username+'&psw='+this.password,
             //url: 'http://10.43.101.94:8080/login?user='+currentTicket.id+'&id='+this.currentTicket.id,
           }
         )

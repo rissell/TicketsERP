@@ -394,7 +394,7 @@ import axios from 'axios'
 
     mounted: function() {
       this.getTickets();
-      console.log(g_username);
+      console.log(this.$g_username);
     },
 
   }
