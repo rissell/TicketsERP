@@ -67,7 +67,7 @@
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="#A94E93"
+      color="#0D65FF"
       dark
       app
       fixed
@@ -83,7 +83,7 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">Welcome, {{username}}</span>
+        <span class="hidden-sm-and-down">Welcome, {{this.$g_username}}</span>
       </v-toolbar-title>
       <v-btn icon>
         <v-icon>account_circle</v-icon>
@@ -149,12 +149,12 @@
             <v-flex xs3 d-flex>
               <v-text-field
                 v-model="currentTicket.area"
-                placeholder="area"
+                placeholder="Area"
               ></v-text-field>
             </v-flex>
             <v-flex xs3 d-flex>
               <v-text-field
-              placeholder="priorities"
+              placeholder="Priority"
               v-model="currentTicket.priority"
               ></v-text-field>
             </v-flex>
@@ -167,7 +167,7 @@
 					<input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
           <v-spacer></v-spacer>
           <v-btn flat color="primary" >Cancel</v-btn>
-          <v-btn  type="submit" @click="submitTicket()" flat color="#A94E93" >Save</v-btn>
+          <v-btn  type="submit" @click="submitTicket()" flat color="#0D65FF" >Save</v-btn>
         </v-card-actions>
       </v-card>
       </form>
@@ -201,10 +201,9 @@
       ],
       newTicketDialog: false,
       drawer: null,
-      username: 'Rosa',
+      username: this.$g_username,
       datetime: new Date().toISOString().slice(0,10),
       leftBarItems: [
-        { icon: 'contacts', text: 'Maintenance staff' },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
@@ -235,7 +234,7 @@
               axios(
               {
                 method: 'post',
-                url: 'http://10.43.101.94:8080/addTicket?item='+this.currentTicket.id+'&desc='+this.currentTicket.desc+'&loc='+this.currentTicket.loc+'&area='+this.currentTicket.area,
+                url: 'http://10.43.97.120:8080/addTicket?item='+this.currentTicket.id+'&desc='+this.currentTicket.desc+'&loc='+this.currentTicket.loc+'&area='+this.currentTicket.area,
               }
             )
             .then(response => {

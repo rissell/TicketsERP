@@ -5,7 +5,11 @@ import App from './App'
 import router from './router'
 
 Vue.config.productionTip = false;
-Vue.prototype.$g_username = "";
+Vue.prototype.$g_username = "User";
+Vue.prototype.$g_password = "Password";
+Vue.prototype.$g_role = "Rol";
+Vue.prototype.$g_baseURL = "Url";
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -45,7 +45,7 @@
       //edit comlumn
 
       getPendingTickets: function () {
-        axios.get('http://10.43.101.94:8080/pending')
+        axios.get('http://10.43.97.120:8080/pending')
         .then(response => {
             console.log(response.data);
             let i=0;

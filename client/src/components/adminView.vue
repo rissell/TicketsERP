@@ -67,27 +67,50 @@
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="#A94E93"
+      color="#0D65FF"
       dark
       app
       fixed
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">Odoo Tickets</span>
+        <span class="sm-and-down">Odoo Tickets</span>
       </v-toolbar-title>
 
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">Today, {{datetime}}</span>
+        <span class="sm-and-down">Today, {{datetime}}</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
+
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">Welcome, {{username}}</span>
+        <span class="sm-and-down">Welcome, {{this.$g_username}}</span>
       </v-toolbar-title>
-      <v-btn icon>
+
+      <v-btn icon >
         <v-icon>account_circle</v-icon>
       </v-btn>
+
+                <v-menu bottom left>
+              <v-btn
+                slot="activator"
+                dark
+                icon
+              >
+                <v-icon>more_vert</v-icon>
+              </v-btn>
+  
+              <v-list>
+                <v-list-tile
+                  v-for="(item, i) in accountItems"
+                  :key="i"
+                  @click=""
+                >
+                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -106,7 +129,7 @@
                     <td class="text-xs-right">{{ props.item.desc }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
                     <td class="text-xs-right">
-                        <v-btn @click="editTicket(props.item.id)" color="#A94E93" dark>Edit status</v-btn>
+                        <v-btn @click="editTicket(props.item.id)" color="#0D65FF" dark>Edit status</v-btn>
                     </td>
                     </template>
                 </v-data-table>
@@ -190,9 +213,9 @@
 				>
 
             <v-spacer></v-spacer>
-          <v-btn flat color="#A94E93" >Cancel</v-btn>
+          <v-btn flat color="#0D65FF" >Cancel</v-btn>
 
-          <v-btn type="submit" @click="updateTicket()" flat color="#A94E93" >Update</v-btn>
+          <v-btn type="submit" @click="updateTicket()" flat color="#0D65FF" >Update</v-btn>
         </v-card-actions>
       </v-card>
       </form>
@@ -235,7 +258,7 @@ import axios from 'axios'
       newTicketDialog: false,
       editTicketDialog: false,
       drawer: null,
-      username: 'Rosa',
+      username: this.$g_username,
       datetime: new Date().toISOString().slice(0,10),
       leftBarItems: [
         { icon: 'contacts', text: 'Maintenance staff' },
@@ -282,6 +305,9 @@ import axios from 'axios'
         ],
         adminTickets: [
 
+        ],
+        accountItems: [
+          { title: 'Logout' }
         ]
     }),
     props: {
@@ -393,7 +419,7 @@ import axios from 'axios'
     },
 
     mounted: function() {
-      this.getTickets();
+      //this.getTickets();
       console.log(this.$g_username);
     },
 

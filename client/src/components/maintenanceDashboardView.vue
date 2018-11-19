@@ -67,7 +67,7 @@
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="#A94E93"
+      color="#0D65FF"
       dark
       app
       fixed
@@ -83,7 +83,7 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">Welcome, {{username}}</span>
+        <span class="hidden-sm-and-down">Welcome, {{this.$g_username}}</span>
       </v-toolbar-title>
       <v-btn icon>
         <v-icon>account_circle</v-icon>
@@ -106,7 +106,7 @@
                     <td class="text-xs-right">{{ props.item.desc }}</td>
                     <td class="text-xs-right">{{ props.item.status }}</td>
                     <td class="text-xs-right">
-                        <v-btn @click="editTicket(props.item.id)" color="#A94E93" dark>Edit status</v-btn>
+                        <v-btn @click="editTicket(props.item.id)" color="#0D65FF" dark>Edit status</v-btn>
                     </td>
                     </template>
                 </v-data-table>
@@ -190,9 +190,9 @@
 				>
 
             <v-spacer></v-spacer>
-          <v-btn flat color="#A94E93" >Cancel</v-btn>
+          <v-btn flat color="#0D65FF" >Cancel</v-btn>
 
-          <v-btn type="submit" @click="updateTicket()" flat color="#A94E93" >Update</v-btn>
+          <v-btn type="submit" @click="updateTicket()" flat color="#0D65FF" >Update</v-btn>
         </v-card-actions>
       </v-card>
       </form>
@@ -235,19 +235,10 @@ import axios from 'axios'
       newTicketDialog: false,
       editTicketDialog: false,
       drawer: null,
-      username: 'Rosa',
+      username: this.$g_username,
       datetime: new Date().toISOString().slice(0,10),
       leftBarItems: [
-        { icon: 'contacts', text: 'Maintenance staff' },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'Tickets',
-          model: true,
-          children: [
-            { icon: 'history', text: 'Current tickets' }
-          ]
-        }
+        { icon: 'contacts', text: 'Maintenance staff' }
       ],
       adminHeaders: [
           {

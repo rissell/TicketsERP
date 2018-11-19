@@ -45,7 +45,7 @@
       //edit comlumn
 
       getFixedTickets: function () {
-        axios.get('http://10.43.101.94:8080/fixed?user='+this.$g_username)
+        axios.get('http://10.43.97.120:8080/fixed?user='+this.$g_username)
         .then(response => {
             console.log(response.data);
             let i=0;
