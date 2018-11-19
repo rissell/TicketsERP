@@ -423,6 +423,17 @@ import axios from 'axios'
       console.log(this.$g_username);
     },
 
+    created: function () {
+      var result = "denied";
+      
+      if(result === 'allowed') {
+        console.log('permission allowed!');
+      } else {
+        console.log('permission denied!');
+        this.$router.push('/login');
+      }
+    }
+
   }
 
 </script>

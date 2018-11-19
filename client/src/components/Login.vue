@@ -15,8 +15,8 @@
                 <h4>Login</h4>
                 </v-card-title>
                 <v-form>
-                  <v-text-field prepend-icon="person" name="Username" label="Username" v-model="this.$g_username"></v-text-field>
-                  <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="this.$g_password"></v-text-field>
+                  <v-text-field prepend-icon="person" name="Username" label="Username" v-model="email"></v-text-field>
+                  <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="password"></v-text-field>
                   <v-card-actions>
                   <v-btn @click="login" primary large block>Login</v-btn>
                   </v-card-actions>
@@ -35,24 +35,20 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     }
   },
   methods: {
-    setLoginCookie () {
-      var d = new Date();
-      var exdays = 1;
-      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-      var expires = "expires="+d.toUTCString();
-      document.cookie = "username" + "=" + this.$g_username + ";" + expires + ";path=/";
-      document.cookie = "password" + "=" + this.$g_password + ";" + expires + ";path=/";
-      document.cookie = "role" + "=" + this.$g_role + ";" + expires + ";path=/";      
-    },
 
     async login () {
-        setLoginCookie(); //Todo remove
-        axios(
+      
+      this.$g_username = this.email;
+      this.$g_password = this.password;
+      document.cookie = "username" + "=" + this.$g_username + ";path=/";
+      document.cookie = "password" + "=" + this.$g_password + ";path=/";
+
+      axios(
           {
             method: 'post',
             url: 'http://10.43.101.94:8080/login?user='+this.$g_username+'&psw='+this.$g_password,
@@ -64,15 +60,15 @@ export default {
             if(response.data != "Deny"){
                if(response.data == "user"){
                 this.$g_role = "user";
-                setLoginCookie();
+                document.cookie = "role" + "=" + this.$g_role + ";path=/";
                 this.$router.push('/user');
                }else if(response.data == "staff"){
                 this.$g_role = "staff";
-                setLoginCookie();
+                document.cookie = "role" + "=" + this.$g_role + ";path=/";
                 this.$router.push('/maintenance');
                }else if(response.data == "admin"){
                 this.$g_role = "admin";
-                setLoginCookie();
+                document.cookie = "role" + "=" + this.$g_role + ";path=/";
                 this.$router.push('/admin');
                }
             }else{
@@ -83,7 +79,14 @@ export default {
           console.log(error);
         })
     }
+
+  },
+
+  created: function() {
+    //clear cookies
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
   }
+
 }
 </script>
 

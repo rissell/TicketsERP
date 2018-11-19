@@ -45,5 +45,7 @@ export default new Router({
       name: 'maintenace-dashboard',
       component: maintenaceDashboard
     }
-  ]
+  ],
 })
+
+
