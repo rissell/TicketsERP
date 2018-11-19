@@ -71,7 +71,8 @@ export default {
                }else if(response.data == "admin"){
                 this.$g_role = "admin";
                 document.cookie = "role" + "=" + this.$g_role + ";path=/";
-                this.$router.push('/admin');
+                //this.$router.push('/admin');
+                window.location.href = "users.html"
                }
             }else{
               alert("Invalid credentials.");

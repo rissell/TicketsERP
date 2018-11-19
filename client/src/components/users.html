@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<!-- saved from url=(0969)https://fs.itesm.mx/adfs/ls/?SAMLRequest=nVJBbsIwEPyKtffEcQARLBJEi1CRqEAk9NALMsEBo8SmXgfx%2FKYBVHrh0Isly7MzOzMeji5VSc7SojI6BuYHQKTOzU7pfQzrbOpFMEqGKKoyPPFx7Q56Jb9qiY40gxr59SWG2mpuBCrkWlQSuct5On6f89AP%2BMkaZ3JTAhkjSusaqVejsa6kTaU9q1yuV%2FMYDs6dkFNaKcxriwZ9J3O%2FulDRyHo%2FQrQ90nRBRakE0g0LuhsGZNLso7RwrYc7TYG%2BchKrlmFXIC2RApkam8vWRwyFKFECmU1iEN3jPlTdXaBkpFTUY%2FvoeNiKjmDHvioGDQiXAlGd5e8YYi1nGp3QLoYwYJHHmMcGWdjhAeNB3w96nU8gy5v7F6WvqT6LansFIX%2FLsqW3XKQZkI97Ow0Abl3wVt0%2BlvCcWNyTh%2BS%2FOQ%2Fpo3Ryu%2F79Fck3&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=Vj31tsXBx%2FB4%2BPwFH2ph%2F9fVZ%2BnzeceRX2WIJB%2B3Zog0DaSZL740d0WWwVkxffc9Ue227elTXAx4nkO%2Fy8WhluWZZWbsQMrcBfYNz7%2F8840vWLPfAQZxIWUxPFEEch%2BQ1vum8uGOMDkilwp40Nn4LQXlRxp8Ykrr6PqKVurR38tIsiybOb8CNV5WKGqAFCdaw1jOIgV%2BpGVjTKzIrJCPgXJt4uae%2BGR9%2B6WGj4GAlo5j0Lt%2FWWsKqiYbDu2o0pbOKJelg8aAhgZBpfocRh2eDYqHHmjJiQ8zZB1IaEV0n3dPKg5Ls%2FeiDrH%2ByLohEhwhfUs%2FXiROHd30IK1%2FRDnX1Q%3D%3D -->
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	Sign In
+</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="./users_files/bootstrap.min.css" rel="stylesheet">
+	
+	<!--[if lt IE 8]>
+        <link href="/adfs/ls/Content/login-ie7.css" rel="stylesheet" />
+	<![endif]-->
+	
+	
+	<style>
+
+		html,body{ 
+		height:100%
+		}
+
+		.row{
+		text-align: center;
+		}
+
+		.img{
+			background-repeat: no-repeat;
+			background-size: cover;
+			height:100%;
+		}
+		.col-centered{
+			float: none;
+			margin: 0 auto;
+		}
+	</style>
+	<script src="./users_files/jquery-1.11.1.min.js.download"></script>
+	<script src="./users_files/bootstrap.min.js.download"></script>
+	<script src="./users_files/respond.src.js.download"></script>
+</head>
+<body style="display: flex; align-items: center;">
+
+	<div id="imagenDiv" class="hidden-sm hidden-xs col-md-7 img" style="margin: 0px; padding: 4% 0px;">
+<a id="urlImagen" target="_new">
+<img src="./users_files/logintec.jpg" id="imagen" class="img" style="width:100%">
+</a>
+	</div>
+	<div class="col-md-5 col-sm-12 col-xs-12" style="top: -25px;">
+		<form method="post" action="https://fs.itesm.mx/adfs/ls/?SAMLRequest=nVJBbsIwEPyKtffEcQARLBJEi1CRqEAk9NALMsEBo8SmXgfx%2FKYBVHrh0Isly7MzOzMeji5VSc7SojI6BuYHQKTOzU7pfQzrbOpFMEqGKKoyPPFx7Q56Jb9qiY40gxr59SWG2mpuBCrkWlQSuct5On6f89AP%2BMkaZ3JTAhkjSusaqVejsa6kTaU9q1yuV%2FMYDs6dkFNaKcxriwZ9J3O%2FulDRyHo%2FQrQ90nRBRakE0g0LuhsGZNLso7RwrYc7TYG%2BchKrlmFXIC2RApkam8vWRwyFKFECmU1iEN3jPlTdXaBkpFTUY%2FvoeNiKjmDHvioGDQiXAlGd5e8YYi1nGp3QLoYwYJHHmMcGWdjhAeNB3w96nU8gy5v7F6WvqT6LansFIX%2FLsqW3XKQZkI97Ow0Abl3wVt0%2BlvCcWNyTh%2BS%2FOQ%2Fpo3Ryu%2F79Fck3&amp;SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&amp;Signature=Vj31tsXBx%2FB4%2BPwFH2ph%2F9fVZ%2BnzeceRX2WIJB%2B3Zog0DaSZL740d0WWwVkxffc9Ue227elTXAx4nkO%2Fy8WhluWZZWbsQMrcBfYNz7%2F8840vWLPfAQZxIWUxPFEEch%2BQ1vum8uGOMDkilwp40Nn4LQXlRxp8Ykrr6PqKVurR38tIsiybOb8CNV5WKGqAFCdaw1jOIgV%2BpGVjTKzIrJCPgXJt4uae%2BGR9%2B6WGj4GAlo5j0Lt%2FWWsKqiYbDu2o0pbOKJelg8aAhgZBpfocRh2eDYqHHmjJiQ8zZB1IaEV0n3dPKg5Ls%2FeiDrH%2ByLohEhwhfUs%2FXiROHd30IK1%2FRDnX1Q%3D%3D" id="MainForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIxMjgxNTUyMDdkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBSNjdGwwMCRDb250ZW50UGxhY2VIb2xkZXIxJENoZWNrQm94MdUs0KZ5AKCieDHyfnEA2sVJjhYUtyjWwetrc3UzmpBY">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['MainForm'];
+if (!theForm) {
+    theForm = document.MainForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="0EE29E36">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAA5YOjPqzjDTmrEcxR3YCefHlt/S8mKmQpmuxn2LW6B9ttYx3OgWcO3JkTzpwfV92oh7PKgvFhd/UCrh6PvV7qCAG8sL8VA5/m7gZ949JdB2tEE+RwHRw9AX2/IZO4gVaaLAwqMbtsjTNwgnfPrYqoOnRbOWc/k3TrvO0b6TSedYidPiLV80Vb9Fh75LR4EHCbyKVNfRO4BVUSc1392nv2wCCNjq20lQGfYHxqaDUfBPbR6+7OfR5nSalPK8ufqJozW4Z67AOU/kzhzLV6X3P9qDjKZWG4rH59f66Vc64WGnN9gEfh9+oWyrDAcfEhgqrx7Hj/UdcY9BOAIBHI40cwnq">
+</div><input type="hidden" name="__db" value="15">
+		<div class="divmain">
+
+
+			<div class="divContentHeaderText row" style="display:none">
+				
+				<a id="lnkAyuda" href="javascript:__doPostBack(&#39;ctl00$lnkAyuda&#39;,&#39;&#39;)" style="display: none;">Ayuda</a> 
+				<!--<a id="lnkFAQ" href="javascript:__doPostBack(&#39;ctl00$lnkFAQ&#39;,&#39;&#39;)" style="color: #294E8B; text-decoration: none;">Preguntas frecuentes</a>-->
+				<a href="https://fs.itesm.mx/adfs/ls/Ayuda/ayudafaq.html" style="color: #294E8B; text-decoration: none;">Preguntas frecuentes</a>
+				<a href="https://fs.itesm.mx/adfs/ls/Ayuda/ayuda.html" style="color: #294E8B; text-decoration: none;">Ayuda</a>
+				
+
+			</div>
+					
+			<div class="divbody">
+				<div class="">
+					<div class="row windowIE7" style="margin-top:15%;margin-bottom:5%">
+						<div class="col-centered">
+							<a href="https://fs.itesm.mx/adfs/ls/?SAMLRequest=nVJBbsIwEPyKtffEcQARLBJEi1CRqEAk9NALMsEBo8SmXgfx%2fKYBVHrh0Isly7MzOzMeji5VSc7SojI6BuYHQKTOzU7pfQzrbOpFMEqGKKoyPPFx7Q56Jb9qiY40gxr59SWG2mpuBCrkWlQSuct5On6f89AP%2bMkaZ3JTAhkjSusaqVejsa6kTaU9q1yuV%2fMYDs6dkFNaKcxriwZ9J3O%2fulDRyHo%2fQrQ90nRBRakE0g0LuhsGZNLso7RwrYc7TYG%2bchKrlmFXIC2RApkam8vWRwyFKFECmU1iEN3jPlTdXaBkpFTUY%2fvoeNiKjmDHvioGDQiXAlGd5e8YYi1nGp3QLoYwYJHHmMcGWdjhAeNB3w96nU8gy5v7F6WvqT6LansFIX%2fLsqW3XKQZkI97Ow0Abl3wVt0%2blvCcWNyTh%2bS%2fOQ%2fpo3Ryu%2f79Fck3&amp;SigAlg=http%3a%2f%2fwww.w3.org%2f2001%2f04%2fxmldsig-more%23rsa-sha256&amp;Signature=Vj31tsXBx%2fB4%2bPwFH2ph%2f9fVZ%2bnzeceRX2WIJB%2b3Zog0DaSZL740d0WWwVkxffc9Ue227elTXAx4nkO%2fy8WhluWZZWbsQMrcBfYNz7%2f8840vWLPfAQZxIWUxPFEEch%2bQ1vum8uGOMDkilwp40Nn4LQXlRxp8Ykrr6PqKVurR38tIsiybOb8CNV5WKGqAFCdaw1jOIgV%2bpGVjTKzIrJCPgXJt4uae%2bGR9%2b6WGj4GAlo5j0Lt%2fWWsKqiYbDu2o0pbOKJelg8aAhgZBpfocRh2eDYqHHmjJiQ8zZB1IaEV0n3dPKg5Ls%2feiDrH%2byLohEhwhfUs%2fXiROHd30IK1%2fRDnX1Q%3d%3d" id="linkToHome">
+							   
+									<img id="imagenNuenva" class="img-responsive" style="display: inherit; width: inherit; padding-left: 50px; padding-right: 50px;" src="./users_files/logotec.jpg">
+							</a>
+						</div>
+					</div>
+					<div class="divlinecontent"></div>
+					<div class="divContentBody">
+							
+
+	<div id="ControlesDiv" class="row">
+
+		<div class="divContentControlsHeaderText" style="margin-bottom:5%;font-family: Segoe UI Light, Arial, Helvetica, sans-serif;font-size: 17px;color: #747474;">
+			<div> Para iniciar la sesión ingresa tu usuario y contraseña</div>
+			<div style="margin-top:-10px;"> 
+				
+			</div>
+		</div>
+
+		<div id="contentInputs" class="col-md-6 col-md-offset-3">
+		
+			<div class="row">
+				<div class="form-group">
+					<input name="ctl00$ContentPlaceHolder1$UsernameTextBox" type="text" id="UsernameTextBox" tabindex="2" class="form-control" required="" title="Favor de escribir su cuenta" placeholder="Usuario">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group">
+					<input name="ctl00$ContentPlaceHolder1$PasswordTextBox" type="password" id="PasswordTextBox" tabindex="4" class="form-control" required="" title="Favor de escribir su password" placeholder="Contraseña">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group">
+					<select name="ctl00$ContentPlaceHolder1$ddlDomain" id="ContentPlaceHolder1_ddlDomain" tabindex="1" class="form-control" style="display: none;">
+	<option value="-1">-- Institución --</option>
+	<option value="TEC">Sistema Tecnológico de Monterrey</option>
+	<option value="TEC">Tecnológico de Monterrey</option>
+	<option value="TEC">Universidad TecVirtual</option>
+	<option value="UTM">Universidad Tecmilenio</option>
+	<option value="TEC">TecSalud</option>
+	<option value="TEC">Sorteos</option>
+	<option value="TEC">Arte AC</option>
+	<option value="TEC">NIC México</option>
+	<option value="LABIDM">LABIDM</option>
+	<option value="TEC">Dominio tecvirtual.mx</option>
+	<option value="TESTUTM">TESTUTM</option>
+	<option value="PADRESTEC.ITESM">Padres</option>
+
+</select>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="checkbox">
+					<label id="check" style="float:left"><span style="font-family: Segoe UI Light, Arial, Helvetica, sans-serif;"><input id="ContentPlaceHolder1_CheckBox1" type="checkbox" name="ctl00$ContentPlaceHolder1$CheckBox1" tabindex="5"></span>Recuérdame </label>
+					<input type="submit" name="ctl00$ContentPlaceHolder1$SubmitButton" value="Ingresar" onclick="checkServices();" id="ContentPlaceHolder1_SubmitButton" tabindex="6" class="btn btn-primary"> 
+				</div>
+			</div>
+			
+			<div class="row">
+				<div id="pass"> <a href="https://fs.itesm.mx/adfs/ls/Ayuda/ayudacontrasena.html" style="color: #294E8B; text-decoration: none;font-family: Segoe UI Light, Arial, Helvetica, sans-serif;float:left">¿Olvidaste tu contraseña?</a></div>
+			</div> 
+			
+			<div class="row">
+				<div class="EthosBtnMiEspacio">
+					  <a href="http://sistematecnologicodemonterrey.ethicspoint.com/" target="_blank"><img src="./users_files/ethos.png" width="130" height="35" style="margin-top: 10px;"></a>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="EthosMiTec" style="display: none;">
+					<a href="https://secure.ethicspoint.com/domain/media/es/gui/36326/index.html" target="_blank" class="EthosLinkBtn">
+						<div class="FloatDiv">Reporta en </div> 
+						<div class="EthosImgBtn">
+							<img src="./users_files/ethos.png" width="77" height="23">
+						</div> 
+						<div class="FloatDiv">las faltas al código de ética</div> 
+					</a>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div id="StoreAppsImgs" style="display: none;">
+					<img id="logosTiendas" src="./users_files/logoTiendasApps.png" style="margin-top: 10px;" usemap="#Map">
+					<map name="Map">
+						<area id="iTunes" shape="rect" coords="1,1,141,52" href="javascript:newWindow(&#39;https://itunes.apple.com/mx/app/miespacio-movil/id885658638?l=en&amp;mt=8&#39;);">
+						<area id="playStore" shape="rect" coords="162,2,301,49" href="javascript:newWindow(&#39;https://play.google.com/store/apps/details?id=com.itesm.miespacioandroid&#39;);">
+					</map>
+				</div>
+			</div>
+			
+			<div class="row">
+				<span id="AvisoUTM" class="AvisoUTM" style="margin-top:15px"></span>
+			</div>
+			
+			<div id="ddlAvisos" style="margin-top: 10px">
+
+				<div id="AvisosContainer">
+					<div class="dropdown">
+						<button onclick="myFunction()" class="dropbtn">Avisos de Privacidad</button>	
+						<div id="myDropdown" class="dropdown-content">
+							<a href="https://tec.mx/es/avisos-de-privacidad" target="_blank">Tecnológico de Monterrey</a>
+							<a href="http://tecmilenio.mx/aviso-de-privacidad/alumnos" target="_blank">Universidad TecMilenio</a>
+							<a href="http://www.hsj.com.mx/secciones-hsj/aviso-de-privacidad.aspx" target="_blank">TecSalud</a>
+							<a href="https://www.sorteostec.org/secciones/164-avisos-de-privacidad/" target="_blank">SorteosTec</a>
+							<a href="http://www.nicmexico.mx/static/docs/Aviso_de_Privacidad.pdf" target="_blank">NIC México</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="footer_inner_container">
+
+					<table id="footer_table" align="center">
+
+						<tbody><tr>
+							<td>
+								<div class="footer_glyph" style="display: none">
+									<a href="http://sistematecnologicodemonterrey.ethicspoint.com/" target="_blank"><img src="./users_files/ethos.png" width="77" height="23" style="margin-top: 10px;"></a>
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="2">
+								<div class="footer tinytext">
+									<span class="corporate_footer">	
+										<span class="branding_footer"></span>
+										<span class="corp_link" style="color: #666;" id="footer_copyright_link">
+											<span id="CopyRightTec">
+												<br>©<span class="ActualYear">2018</span> Tecnológico de Monterrey
+											</span>
+											<span id="CopyRightTecMilenio" style="display: none;">
+												<br>
+												<span>
+													D.R.© Enseñanza e Investigación Superior, A.C. Monterrey, N.L. México. <span class="ActualYear">2018</span>.
+												</span> 
+												<br> 
+												<span>
+													<a href="http://www.tecmilenio.edu.mx/aviso_de_privacidad">
+														Aviso
+													</a>
+													<a>&nbsp;y&nbsp;</a>
+													<a href="http://www.tecmilenio.edu.mx/politicas_de_privacidad">
+														Política de Privacidad
+													</a>
+												</span>
+											</span>
+										</span>
+									</span>
+								</div>
+
+							</td>
+						</tr>
+
+					</tbody></table>
+
+				</div>
+
+			</div>
+			
+		</div>
+			
+	</div>
+	
+	<style>
+
+		#ContentPlaceHolder1_SubmitButton
+		{
+			float:right;
+		}
+		 
+		.AvisoUTM
+		{
+			font-size: small;
+			font-family: Segoe UI Light, Arial, Helvetica, sans-serif;
+			color: #747474;
+		}
+		
+		.EthosLinkBtn
+		{
+			font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			font-style: normal;
+			color: black;
+		}
+
+		.EthosMiTec
+		{
+			width: 200px;
+			height: 80px;
+			border-color: #41719C;
+			border-radius: 11px;
+			border-style: solid;
+			border-width: 5px;
+			padding-left: 15px;
+			padding-right: 3px;
+			padding-top: 16px;
+			font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			font-style: normal;
+			display: inline-block;
+			margin-top: 10px;
+		}
+			
+		.FloatDiv
+		{
+			float: left;
+		}
+			
+		.EthosImgBtn
+		{
+			float: left;
+			margin-left: 5px;
+		}
+
+		.img
+		{
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.dropbtn 
+		{
+			background-color: #5DADE2;
+			color: white;
+			padding: 10px;
+			font-size: 12px;
+			border: none;
+			cursor: pointer;
+		}
+
+		.dropbtn: hover, .dropbtn: focus 
+		{
+			background-color: #85929E;
+		}
+
+		.dropdown 
+		{
+			position: relative;
+			display: inline-block;
+			font-family:"Arial";
+			font-size:11px;
+		}
+
+		.dropdown-content 
+		{
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			min-width: 200px;
+			overflow: auto;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+			margin-left: -22%;
+		}
+
+		.dropdown-content a 
+		{
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;               
+		}
+
+		.dropdown a: hover 
+		{
+			background-color: #B0E0E6
+		}
+
+		.show 
+		{
+			display:block;
+		}
+
+	</style>
+		
+	<script src="./users_files/jquery.watermark.min.js.download" type="text/javascript"></script>
+	<script src="./users_files/Utility.js.download" type="text/javascript"></script>
+	<script src="./users_files/jquery.rc4.js.download" type="text/javascript"></script>
+	<script src="./users_files/jquery.xdomainrequest.min.js.download" type="text/javascript"></script>
+		
+	<script type="text/javascript">
+		
+		var isMobile = false;
+		
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+		{
+			isMobile = true;
+		}
+		
+		/* Deja un espacio arriba y abajo de la imagen del Login. */
+		$('#imagenDiv').css('padding-top','4%').css('padding-bottom','4%');
+		
+		function newWindow(laliga, laventana) 
+		{
+			window.open(laliga, laventana, "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=1024,height=480,top=40,left=40");
+		}
+
+		function validateEmail(email) 
+		{ 
+			if(!isPadres)
+			{
+				var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				return re.test(email);
+			}
+			else	
+			{
+				return true;
+			}
+		} 
+
+		function asignarDominio(dominio)
+		{
+			document.getElementById("ContentPlaceHolder1_ddlDomain").value = dominio;
+		}
+
+		function getDominio(correo)
+		{
+			if(isPadres)
+			{
+				return "PADRESTEC.ITESM"
+			}
+			else
+			{
+
+				var correos = [["@tec.mx","TEC"],["@itesm.mx","TEC"],["@arteac.edu.mx","TEC"],["@nic.mx","TEC"],["@tecmilenio.mx","UTM"],["@tecsalud.mx","TEC"],["@sorteostec.mx","TEC"],["@sistematec.mx","LABIDM"],["@testutm.tecmilenio.mx","TESTUTM"],["@test.nic.mx","LABIDM"],["@clases.sistematec.mx","LABIDM"],["@servicios.tecmilenio.mx","UTM"]];
+				var tes = new RegExp("^t-");    
+					
+				if(tes.test(correo.toLowerCase()))
+				{
+					return "TEC";
+				}
+
+				for(var i = 0; i < correos.length; i++)
+				{   
+					var re = new RegExp(correos[i][0]+"$");    
+					
+					if(re.test(correo.toLowerCase()))
+					{
+						return correos[i][1];
+					}
+				}   
+				
+																		  
+
+				if(validateEmail(correo))
+				{
+					return "TEC";
+				}
+				else if(isTecMilenio)
+				{ 
+					return "UTM";
+				}
+				else
+				{
+					return "TEC";
+				}
+			}
+		}
+
+		function CalculaDominio()
+		{
+			var nomina = new RegExp("^[l,L]+[0-9]{8}$");
+			/* Esto de nomitaUTM no esta en Test */
+			var nominaUTM = new RegExp("^[al,AL]+[0-9]{9}$");
+			var matricula = new RegExp("^[a,A]+[0-9]{8}$");
+			var padreId = new RegExp("^[f,F]+[0-9]{8}$");
+			var Dominio = "";
+
+			if(nomina.test($("#UsernameTextBox").val()))
+			{
+				//asignarDominio("TEC");
+				$.ajax({
+					type: "GET",
+					//url: "https://prd18wtyc01.itesm.mx/Perfiles/Perfiles.svc/ConsultaPerfiles/" + $("#UsernameTextBox").val(),
+					url: "https://prd18wtyc01.itesm.mx/PerfilesADFS/Perfiles.svc/ConsultaPerfiles/" + $("#UsernameTextBox").val(),
+					cache: false,
+					dataType: "json",
+					crossDomain: true,
+					error: function(xhr, errorString, exception){ $("#ContentPlaceHolder1_ddlDomain").show(); },
+					success: function(json) 
+					{		
+						if(json.Instituciones.length == 0)
+						{
+							asignarDominio("TEC");
+						}		
+						if(	json.Instituciones.length == 1)
+						{
+							$(".ErrorTextLabel").html("");
+							$(".AvisoUTM").html("");
+							asignarDominio(json.Instituciones[0].Dominio);
+						}
+						else
+						{
+							if(!$(".AvisoUTM").html() &&  json.Instituciones.length>1)
+							{
+								for (var i = json.Instituciones.length - 1; i >= 0; i--)
+								{
+									Dominio = Dominio + "<div><input type=radio id=dominios  name=dominios  onclick='javascript:asignarDominio(this.value);' value='"+json.Instituciones[i].Dominio+"'/>"+json.Instituciones[i].Dominio + "</div>";
+									asignarDominio(json.Instituciones[i].Dominio);
+								}
+
+								$(".AvisoUTM").html("<div class='alert alert-warning' style='padding-bottom: 50px;'><div> Elige la cuenta con la que deseas acceder a esta sesión.</div><div style='float:right'>" +Dominio + "</div></div>");						
+							}
+							
+						}		   
+					}
+				});
+			}
+			else if(nominaUTM.test($("#UsernameTextBox").val()))
+			{
+				//asignarDominio("TEC");
+				$.ajax({
+					type: "GET",
+					//url: "https://prd18wtyc01.itesm.mx/Perfiles/Perfiles.svc/ConsultaPerfiles/" + $("#UsernameTextBox").val(),
+					url: "https://prd18wtyc01.itesm.mx/PerfilesADFS/Perfiles.svc/ConsultaPerfiles/" + $("#UsernameTextBox").val(),
+					cache: false,
+					dataType: "json",
+					crossDomain: true,
+					error: function(xhr, errorString, exception){ $("#ContentPlaceHolder1_ddlDomain").show(); },
+					success: function(json) 
+					{		
+						if(json.Instituciones.length == 0)
+						{
+							asignarDominio("TESTUTM");
+						}		
+						if(	json.Instituciones.length == 1)
+						{
+							$(".ErrorTextLabel").html("");
+							$(".AvisoUTM").html("");
+							asignarDominio(json.Instituciones[0].Dominio);
+						}
+						else
+						{
+							if(!$(".AvisoUTM").html() &&  json.Instituciones.length > 1)
+							{
+								for (var i = json.Instituciones.length - 1; i >= 0; i--)
+								{
+
+									Dominio = Dominio+ "<div><input type=radio id=dominios  name=dominios  onclick='javascript:asignarDominio(this.value);' value='"+json.Instituciones[i].Dominio+"'/>"+json.Instituciones[i].Dominio + "</div>";
+									asignarDominio(json.Instituciones[i].Dominio);
+								}
+
+								$(".AvisoUTM").html("<div class='alert alert-warning' style='padding-bottom: 50px;'><div> Elige la cuenta con la que deseas acceder a esta sesión.</div><div style='float:right'>" +Dominio + "</div></div>");								
+							}			
+						}		   
+					}
+				});
+			}
+			else if(matricula.test($("#UsernameTextBox").val()))
+			{
+				asignarDominio("TEC");		
+			}
+			else if(padreId.test($("#UsernameTextBox").val()))
+			{
+				asignarDominio("padrestec.itesm");
+			}
+			else
+			{
+				$(".AvisoUTM").html("");
+				$(".ErrorTextLabel").html("");
+				asignarDominio(getDominio($("#UsernameTextBox").val()));
+			}
+		}
+
+		$(function()
+		{
+
+			var username = decodeURIComponent(getQueryStringParameter("username"));
+
+			if(username != 'undefined' && username !== "" )
+			{		
+				$("#UsernameTextBox").val(username);
+				$("#PasswordTextBox").focus();
+			}
+			else
+			{ 
+				$("#UsernameTextBox").focus();
+			}
+
+			CalculaDominio();
+			$("#PasswordTextBox").focus(CalculaDominio);
+
+		});
+
+
+		/* Valida el portal al que desea acceder para personalizar la master page */
+		var isTecMilenio = false;
+		var isMiEspacio = false;
+		var isMiTecBeta = false; 
+		var isPadres = false;
+
+		$(document).ready(function () 
+		{
+			//Identifica la petición para saber a que sitio de SharePoint trata de acceder
+			identifyLocation();
+
+			//Valida si hay un mensaje de error, para personalizarlo
+			checkMessage();
+
+			$("#ContentPlaceHolder1_ddlDomain").hide();
+
+			/* Personaliza el TextBox del Usuario, acorde al sitio que se está tratando de acceder */
+			if (isTecMilenio)
+				$("#UsernameTextBox").watermark("Usuario - Ej. al01234567 -");
+			else
+				$("#UsernameTextBox").watermark("Usuario");
+				
+			/****************************************************************************/
+
+			$("#PasswordTextBox").watermark("Contraseña");
+			$("#UsernameTextBox").blur(function () 
+			{
+				var m = $("#UsernameTextBox").val();
+				
+				if (isNaN(parseInt(m))) 
+				{
+					$("#UsernameTextBox").val(m);
+				} 
+				else 
+				{
+					var longitud = m.length;
+					
+					for (i = longitud; i < 8; i++) 
+					{
+						m = "0" + m;
+					}
+					
+					m = "L" + m;
+					$("#UsernameTextBox").val(m);
+				}
+			});
+
+			/* Realiza personalizaciones adicionales acorde al sitio que está tratando de acceder */
+			 loadVersion();
+			 
+		});
+
+		function loadVersion() 
+		{
+			$("#MainForm").parent().css("top","-25px");
+			$('body').css('display','flex').css('align-items','center');
+		 
+			// Si el dispositivo de dónde se esta ingresando, NO es movil, se ocultan los iconos de las tiendas de aplicaciones.
+			if(!isMobile)
+			{
+				$("#StoreAppsImgs").hide();
+			}
+			
+			if(isTecMilenio)
+			{
+				$("#imagenNuenva").attr("src","imagesUTM/logoUTM.jpg");
+				$("#imagen").attr("src","imagesUTM/backgroundUTM.jpg");
+				$("#pass > a").attr("href", "https://micuenta.tecmilenio.mx/IDM/portal/cn/GuestContainerPage/ITESMPageForgotPassword"); //Cambia la dirección de recuperar contraseña
+				$(".footer_glyph > a > img").hide();  //cambia el logo de ETHOS
+				$(".footer_glyph > img").hide(); //cambia la imagen de las tiendas
+				$("#CopyRightTecMilenio").show();
+				$("#CopyRightTec").hide();
+				$("[id*='ddlDomain']").val("UTM");
+				$(".EthosMiTec").hide();
+			}
+			else if(isMiEspacio)
+			{
+
+				$("#imagenNuenva").attr("src","MasterPages/logo.png");
+				$("#urlImagen").attr("href", "https://tec.mx/es/noticias/nacional/negocios/el-tec-de-monterrey-en-el-top-10-de-universidades-emprendedoras-de-eu");
+				$("#imagen").attr("src","login.jpg");
+				$(".divContentHeaderText").attr("style","text-align:right;padding-right:10px;display:inherit");		
+				$(".EthosMiTec").hide();
+				$("#CopyRightTecMilenio").hide();
+				$("#CopyRightTec").show();
+			}
+			else if(isMiTecBeta)
+			{
+				$("#imagenNuenva").attr("src","MasterPages/logoMiTec.png").height(62).width(295); //logotipo
+				$("#imagen").attr("src","LoginMitec.jpg"); //fondo
+				$("#urlImagen").attr("href","https://itesm.co1.qualtrics.com/jfe/form/SV_b8IqEORtE9bNrYV");
+				
+				var newHtml = "<span style='font-size:12px;'>¿Nunca has entrado a MiTec? <a href='http://sitios.itesm.mx/va/tutoriales/alumnos/PRM_INGRESO/index.html' target='_blank'>Haz click aquí</a></span>";
+				
+				$("#pass").html(newHtml)
+				$(".EthosBtnMiEspacio").hide();
+				$(".EthosMiTec").attr("href", "javascript:newWindow('https://secure.ethicspoint.com/domain/media/es/gui/36326/index.html')")
+				$(".dropdown").hide();
+				
+				var avisos = "<a href='https://mitec.itesm.mx/portal/pls/portal/portalum.templates.template1?p_vOrigen=barInf.barInf&p_iPortal=1&p_iCampus=98&p_iServicio=19&p_vCveServ=1&p_vCadena=A98E96C06F08EA6B29F325192414292EB737CE8C7200CA73F0F08CB3BDC2B457C3FA338484CC3385EB9084A6151FD684489F87EB4CD57A4FDF41BCF6D3B0FBD1415CF672A4D55DC3734366CDDE25BE41BBB9272E58C7BF50CE4D304AD16771404BD5C4E549490E0257626BB2D896E55E0283C8E6102CE6EADC570B7458F52EED658E76D516541B97B866A5A279944773396BCE41C6657CD34A6370DE826D27C8062B8E5FC1F0C9128D172B2212B3F7BF520E225FEC0C6A5D' target='_blank'>Aviso Legal</a> | <a href='https://tec.mx/es/aviso-de-privacidad-alumnos' target='_blank'>Aviso de Privacidad</a>";
+				
+				$("#AvisosContainer").html(avisos).show();
+				$('[name="ctl00$ContentPlaceHolder1$SubmitButton"]').css('margin-top','-10px');			
+				$("#CopyRightTecMilenio").hide();
+				$("#CopyRightTec").show();		
+			}
+			else if(isPadres)
+			{
+				$("#imagenNuenva").attr("src","MasterPages/logoMiTecpadres.png").height(62).width(295);; //logotipo																			
+																												  
+				$("#imagen").attr("src","loginpadres.jpg"); //fondo
+
+				var newHtml = "<div style='font-size:12px; text-align:center;'><div>¿Olvidaste tu contraseña? <a href='https://micuentapadres.itesm.mx/html/recoverPassword.html' target='_blank'>Recupérala aquí</a></div><div>¿Nunca has entrado a MiTecPadres? <a href='https://micuentapadres.itesm.mx/html/activateAccount.html'>Haz click aquí</a></div></div>";	
+																							
+				$("#pass").html(newHtml)
+				$(".dropdown").hide();
+				
+				var avisos = "<a href='https://mitec.itesm.mx/portal/pls/portal/portalum.templates.template1?p_vOrigen=barInf.barInf&p_iPortal=1&p_iCampus=98&p_iServicio=19&p_vCveServ=1&p_vCadena=A98E96C06F08EA6B29F325192414292EB737CE8C7200CA73F0F08CB3BDC2B457C3FA338484CC3385EB9084A6151FD684489F87EB4CD57A4FDF41BCF6D3B0FBD1415CF672A4D55DC3734366CDDE25BE41BBB9272E58C7BF50CE4D304AD16771404BD5C4E549490E0257626BB2D896E55E0283C8E6102CE6EADC570B7458F52EED658E76D516541B97B866A5A279944773396BCE41C6657CD34A6370DE826D27C8062B8E5FC1F0C9128D172B2212B3F7BF520E225FEC0C6A5D' target='_blank'>Aviso Legal</a> | <a href='https://tec.mx/es/aviso-de-privacidad-padres-de-familia-y-tutores' target='_blank'>Aviso de Privacidad</a>";
+				
+				$("#AvisosContainer").html(avisos).show();
+				$('[name="ctl00$ContentPlaceHolder1$SubmitButton"]').css('margin-top','-10px');
+				$("#footer_table tbody tr td div.footer_glyph a").hide();
+				$(".EthosMiTec").hide();	
+				$("#CopyRightTecMilenio").hide();
+				$("#CopyRightTec").show();
+			}
+			else
+			{
+				$("#imagenNuenva").attr("src","MasterPages/logotec.jpg");
+				$("#imagenNuenva").css("padding-left", "50px").css("padding-right","50px");
+				$("#imagen").attr("src","logintec.jpg");
+				$(".EthosMiTec").hide();	
+				$("#CopyRightTecMilenio").hide();
+				$("#CopyRightTec").show();
+				$("#StoreAppsImgs").hide();
+			}
+		}
+
+		/* Función que se ejecuta antes del submit */
+		function checkServices() 
+		{
+			var txt = $("#UsernameTextBox").val();
+			
+			if(txt == 'ftv2014')
+			{
+				$("#UsernameTextBox").val("ftv2014@svcs.itesm.mx");
+			}
+			if(txt.toLowerCase() == 'consejeros')
+			{
+				$("#UsernameTextBox").val("consejeros@svcs.itesm.mx");
+			}
+			
+			identifyLocation();
+
+			if (isTecMilenio) 
+			{
+				/* En caso de tratar de acceder al portal del tec milenio, realiza el sso al portal de servicios para alumnos */
+				var rx = checkDomain($("#UsernameTextBox").val());
+				var dx = $("#PasswordTextBox").val();
+
+				var strrx = encrypt(rx, Key); 
+				var strdx = encrypt(dx, Key); 
+
+				var url = "http://preseleccion.tecmilenio.edu.mx/LoginSAP/Auxiliar.aspx?rx=" + strrx + "&dx=" + strdx;
+
+				var cwidth = screen.width - 100;
+				var cheight = screen.height - 100;
+				var winwidth = "left=" + cwidth;
+				var winheight = "top=" + cheight;
+
+				/*var winaux = window.open(url, "_blank", "width=100,height=100," + winwidth + "," + winheight + ",location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
+				window.focus();
+				sleep(1000);*/
+
+				return true;
+			}
+			else if(isPadres)
+			{
+				//DetectaPadres
+				//alert("se trata de un padre que quiere ingresar")
+			}
+			else 
+			{
+				return true;
+			}
+		}
+
+		/* Validamos si se agregó el dominio en el campo de usuario, para facilitar el acceso a los administradores */
+		function checkDomain(txtuser) 
+		{
+			if (txtuser.indexOf('\\') > -1) 
+			{
+				var data = txtuser.split('\\');
+				
+				$("[id*='ddlDomain']").val(data[0].toUpperCase());
+				$("#UsernameTextBox").val(data[1]);
+				txtuser = data[1];
+			}
+
+			return txtuser;
+		}
+
+		/* Función que valida el portal de SharePoint que se está tratando de acceder, actualiza la bandera correspondiente*/
+		function identifyLocation() 
+		{
+			var strwtrealm = decodeURIComponent(getQueryStringParameter("wtrealm"));
+			var strUserName = decodeURIComponent(getQueryStringParameter("username"));
+
+			if (strwtrealm != "") 
+			{
+				if (strwtrealm.indexOf("tecmilenio")>-1 || strUserName.indexOf("tecmilenio") >-1) 
+				{ 
+					isTecMilenio = true;
+				}
+				else if (strUserName != "") 
+				{
+					if (strwtrealm.indexOf("tecmilenio")>-1 || strUserName.indexOf("tecmilenio") >-1) 
+					{ 
+						isTecMilenio = true;
+					}
+					else if (strwtrealm == "urn:sharepoint:itesm" || 
+							 strwtrealm == "urn:sharepoint:miespaciotest" || 
+							 strwtrealm == "urn:sharepoint:colabora" || 
+							 strwtrealm == "urn:sharepoint:mysite" || 
+							 strwtrealm == "urn:sharepoint:miespacio-lab" || 
+							 strwtrealm == "urn:sharepoint:espaciotest" || 
+							 strwtrealm == "urn:sharepoint:colaboratest"|| 
+							 strwtrealm.indexOf("conecta")>-1 ) 
+					{
+						isMiEspacio = true;
+					}
+					else if(strwtrealm == "urn:sharepoint:mitecbeta" || strwtrealm == "urn:sharepoint:mitec")
+					{
+						isMiTecBeta = true;
+					} 
+					else if(strwtrealm.indexOf("padres")>0)
+					{
+						isPadres = true;
+					}
+				}
+			}
+		}
+
+		/* Función para obtener un parámetro del querystring*/
+		function getQueryStringParameter(paramToRetrieve) 
+		{
+			if (document.URL.indexOf("?") > -1) 
+			{
+				var params = document.URL.split("?")[1].split("&");
+				var strParams = "";
+				
+				for (var i = 0; i < params.length; i = i + 1) 
+				{
+					var singleParam = params[i].split("=");
+					
+					if (singleParam[0] == paramToRetrieve)
+					{
+						return singleParam[1];
+					}
+				}
+			}
+			else 
+			{
+				return "";
+			}
+		}
+
+		/* Función para personalizar el mensaje de error */
+		function checkMessage() 
+		{
+			if (isTecMilenio) 
+			{
+				/* Se agrega nota para los pop-ups*/
+				$("#msgHelp").fadeIn();
+
+				/* Se agrega el evento de change a la etiqueta de error, para modificar el mensaje de error personalizado */
+				if ($("[id*='ErrorTextLabel']").text() == "La institución, el nombre de usuario o la contraseña son incorrectos") 
+				{
+					$("[id*='ErrorTextLabel']").text("El nombre de usuario o la contraseña son incorrectos");
+				}
+			}
+			
+			$("[id*='ErrorTextLabel']").fadeIn();
+		}
+		
+		/* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+		function myFunction() 
+		{
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
+
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) 
+		{
+			if (!event.target.matches('.dropbtn')) 
+			{
+				var dropdowns = document.getElementsByClassName("dropdown-content");
+				var i;
+				
+				for (i = 0; i < dropdowns.length; i++) 
+				{
+					var openDropdown = dropdowns[i];
+					
+					if (openDropdown.classList.contains('show')) 
+					{
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
+		}
+				
+		var currentYear = (new Date).getFullYear();
+		$('.ActualYear').text(currentYear);
+					
+	</script>
+
+	
+	<div id="msgHelp" style="margin-top:10px; font-size:12px; display:none;">Nota: Para el correcto funcionamiento del portal recuerda tener habilitados los pop-ups.</div>
+
+
+					</div>
+					<div class="divContentFooter"></div>
+				</div>
+			</div>
+	 
+		</div>
+		</form>
+	</div>
+
+
+</body></html>
