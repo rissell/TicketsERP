@@ -412,6 +412,12 @@ import axios from 'axios'
         this.$router.push('/user');  
       },
 
+      getCookie (name) {  /// Retrieve cookie
+        var match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+        if (match) return match[1];
+        return
+      },
+
     },
 
     setItemId: function () {
@@ -420,13 +426,13 @@ import axios from 'axios'
 
     mounted: function() {
       //this.getTickets();
-      console.log(this.$g_username);
+      //console.log(this.$g_username);
     },
 
     created: function () {
-      var result = "denied";
-      
-      if(result === 'allowed') {
+      const userRole = this.getCookie("role")
+      //console.log("USER ROLE: " + userRole);
+      if(userRole === 'admin') {
         console.log('permission allowed!');
       } else {
         console.log('permission denied!');

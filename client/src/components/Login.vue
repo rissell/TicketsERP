@@ -47,6 +47,8 @@ export default {
       this.$g_password = this.password;
       document.cookie = "username" + "=" + this.$g_username + ";path=/";
       document.cookie = "password" + "=" + this.$g_password + ";path=/";
+            document.cookie = "role" + "=" + "admin" + ";path=/";//TODO remove
+
 
       axios(
           {

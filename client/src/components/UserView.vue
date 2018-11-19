@@ -279,7 +279,25 @@
           this.imageFile = '';
           this.imageUrl = '';
         }
+      },
+
+      getCookie (name) {  /// Retrieve cookie
+        var match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+        if (match) return match[1];
+        return
+      },
+    },
+
+    created: function () {
+      const userRole = this.getCookie("role")
+      //console.log("USER ROLE: " + userRole);
+      if(userRole === 'user') {
+        console.log('permission allowed!');
+      } else {
+        console.log('permission denied!');
+        this.$router.push('/login');
       }
     }
+
   }
 </script>
