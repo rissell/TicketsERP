@@ -18,7 +18,7 @@ Vue.component('pending-tickets-component', ticketsViewPending);
 Vue.component('fixed-tickets-component', ticketsViewFixed);
 
 export default new Router({
-  //mode: 'history', //TODO comment this on dist mode (npm run build)
+  mode: 'history', //TODO comment this on dist mode (npm run build)
   routes: [
     {
       path: '/login',

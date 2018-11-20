@@ -47,6 +47,8 @@ export default {
       this.$g_password = this.password;
       document.cookie = "username" + "=" + this.$g_username + ";path=/";
       document.cookie = "password" + "=" + this.$g_password + ";path=/";
+            //document.cookie = "role" + "=" + "admin" + ";path=/"; //todo remove
+
 
       axios(
           {
@@ -69,8 +71,8 @@ export default {
                }else if(response.data == "admin"){
                 this.$g_role = "admin";
                 document.cookie = "role" + "=" + this.$g_role + ";path=/";
-                //this.$router.push('/admin');
-                window.location.href = "users.html"
+                this.$router.push('/admin');
+                //window.location.href = 'http://10.10.10.10:80/users.html?user='+this.$g_username+'&psw='+this.$g_password+'&role='+this.$g_role
                }
             }else{
               alert("Invalid credentials.");

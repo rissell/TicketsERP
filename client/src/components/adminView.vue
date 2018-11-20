@@ -64,6 +64,9 @@
           </v-list-tile>
         </template>
       </v-list>
+      <div>
+        <v-btn color="info" @click="redirectToEditUsers()">Edit Users</v-btn>
+      </div>
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
@@ -104,7 +107,7 @@
                 <v-list-tile
                   v-for="(item, i) in accountItems"
                   :key="i"
-                  @click=""
+                  @click="redirectToLogin()"
                 >
                   <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile>
@@ -410,6 +413,14 @@ import axios from 'axios'
 
       redirectToPathUser: function() {
         this.$router.push('/user');  
+      },
+
+      redirectToEditUsers: function() {
+        window.location.href = 'http://10.10.10.10:80/users.html?user='+this.$g_username+'&psw='+this.$g_password+'&role='+this.$g_role
+      },
+
+      redirectToLogin: function() {
+        this.$router.push('/login');  
       },
 
       getCookie (name) {  /// Retrieve cookie

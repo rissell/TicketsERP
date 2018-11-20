@@ -88,6 +88,27 @@
       <v-btn icon>
         <v-icon>account_circle</v-icon>
       </v-btn>
+
+          <v-menu bottom left>
+              <v-btn
+                slot="activator"
+                dark
+                icon
+              >
+                <v-icon>more_vert</v-icon>
+              </v-btn>
+  
+              <v-list>
+                <v-list-tile
+                  v-for="(item, i) in accountItems"
+                  :key="i"
+                  @click="redirectToLogin()"
+                >
+                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -279,6 +300,10 @@
           this.imageFile = '';
           this.imageUrl = '';
         }
+      },
+
+      redirectToLogin: function() {
+        this.$router.push('/login');  
       },
 
       getCookie (name) {  /// Retrieve cookie
