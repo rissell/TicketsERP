@@ -224,7 +224,7 @@
         axios(
           {
             method: 'get',
-            url: 'http://10.43.101.94:8080/inventory?item='+this.currentTicket.id,
+            url: 'http://189.163.141.150:8080/inventory?item='+this.currentTicket.id,
           }
         )
         .then(response => {

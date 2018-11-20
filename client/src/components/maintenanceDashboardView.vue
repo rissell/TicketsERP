@@ -284,7 +284,7 @@ import axios from 'axios'
       //TODO POST ticket
       //TODO PUT ticket
       updateTicket: function(){
-        axios.post('http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.status+'&id='+this.currentTicket.id)
+        axios.post('http://189.163.141.150:8080/updateTicket?status='+this.currentTicket.status+'&id='+this.currentTicket.id)
         .then(response => {
             console.log(response.data);
         })
@@ -296,7 +296,7 @@ import axios from 'axios'
       editTicket: function (id){
        console.log("EDIT TICKET ID: ");
        console.log(id);
-       axios.get('http://10.43.101.94:8080/tickets?id='+id)
+       axios.get('http://189.163.141.150:8080/tickets?id='+id)
                   .then(response => {
                     console.log(response.data);
                     this.currentTicket.itemId = response.data[0][0];
@@ -319,7 +319,7 @@ import axios from 'axios'
         axios(
           {
             method: 'post',
-            url: 'http://10.43.101.94:8080/updateTicket?status='+this.currentTicket.id+'&id='+this.currentTicket.id,
+            url: 'http://189.163.141.150:8080/updateTicket?status='+this.currentTicket.id+'&id='+this.currentTicket.id,
           }
         )
         .then(response => {
@@ -355,7 +355,7 @@ import axios from 'axios'
       },
 
       getTickets: function () {
-        axios.get('http://10.43.101.94:8080/admin')
+        axios.get('http://189.163.141.150:8080/getTicketsToFix?user=' + this.$g_username)
           .then(response => {
             console.log(response.data);
             let i=0;

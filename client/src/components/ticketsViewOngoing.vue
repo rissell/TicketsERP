@@ -46,7 +46,7 @@
       //edit comlumn
 
       getTickets: function () {
-        axios.get('http://10.43.97.120:8080/ongoing')
+        axios.get('http://10.43.97.120:8080/ongoing?user='+this.$g_username)
         .then(response => {
             console.log(response.data);
             let i=0;

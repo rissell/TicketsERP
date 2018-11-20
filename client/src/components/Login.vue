@@ -47,14 +47,12 @@ export default {
       this.$g_password = this.password;
       document.cookie = "username" + "=" + this.$g_username + ";path=/";
       document.cookie = "password" + "=" + this.$g_password + ";path=/";
-            document.cookie = "role" + "=" + "admin" + ";path=/";//TODO remove
-
 
       axios(
           {
             method: 'post',
-            url: 'http://10.43.101.94:8080/login?user='+this.$g_username+'&psw='+this.$g_password,
-            //url: 'http://10.43.101.94:8080/login?user='+currentTicket.id+'&id='+this.currentTicket.id,
+            url: 'http://189.163.141.150:8080/login?user='+this.$g_username+'&psw='+this.$g_password,
+            //url: 'http://189.163.141.150:8080/login?user='+currentTicket.id+'&id='+this.currentTicket.id,
           }
         )
         .then(response => {
